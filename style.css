@@ -1,0 +1,45 @@
+table{
+    margin: 0 auto;
+    width: 500px;
+    height: 500px;
+}
+
+form{
+    text-align: center;
+    margin-top: 1%;
+}
+
+form > input{
+    text-align: center;
+    width: 5%;
+    margin-bottom: 0.2%;
+}
+
+form > input:nth-child(4n){
+    margin-left: 1%;
+}
+
+#prota{
+    background-color: red;
+}
+
+#examenes{
+    background-color: blue;
+}
+
+#malo{
+    background-color: black;
+}
+
+#inventario{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    border: 1px solid black;
+    margin: 1%;
+    width: 70px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0.5%;
+}
