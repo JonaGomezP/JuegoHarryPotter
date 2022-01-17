@@ -23,12 +23,12 @@ form > input:nth-child(4n){
     background-color: red;
 }
 
-#examenes{
-    background-color: blue;
-}
-
 #malo{
     background-color: black;
+}
+
+#examenes{
+    background-color: blue;
 }
 
 #inventario{
