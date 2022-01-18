@@ -24,12 +24,12 @@ window.onload = () => {
     //Creamos el botón que inicia el juego y le aplicamos estilos
     let boton = document.createElement("input");
     boton.onclick = function () {
-        padre.removeChild(opacidadFondo)
+        padre.removeChild(opacidadFondo);
     }
 
     boton.value = "!JUGAR¡";
     boton.type = "image";
-    boton.src = "/img/harry.png"
+    boton.src = "img/harry.png";
     boton.position = "absolute";
     boton.style.fontSize = "66px";
     boton.style.boxShadow = "5px 10px";
