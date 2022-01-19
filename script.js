@@ -1,60 +1,62 @@
 
 window.onload = () => {
 
-    //Creo la opacidad de fondo al recargar la página donde se muestran los botones de "jugar" y las dificultades
-    let padre = document.querySelector("body");
-    var opacidadFondo = document.createElement("div");
-    opacidadFondo.style.zIndex = "1";
-    opacidadFondo.style.backgroundColor = "black";
-    opacidadFondo.style.opacity = "1";
-    opacidadFondo.style.width = padre.offsetWidth + "px";
-    opacidadFondo.style.width = "100%";
-    opacidadFondo.style.minHeight = screen.availHeight + "px";
-    opacidadFondo.style.position = "fixed";
-    opacidadFondo.style.top = "0";
-    opacidadFondo.style.left = "0";
-    opacidadFondo.style.display = "flex";
-    opacidadFondo.style.justifyContent = "center";
-    opacidadFondo.style.alignItems = "center";
-    opacidadFondo.style.flexDirection = "column";
-    opacidadFondo.style.margin = "0";
-    //Agrego al body el la opacidad de fondo antes del primer hijo que tenga
-    padre.insertBefore(opacidadFondo, padre.firstChild);
+    // //Creo la opacidad de fondo al recargar la página donde se muestran los botones de "jugar" y las dificultades
+    // let padre = document.querySelector("body");
+    // var opacidadFondo = document.createElement("div");
+    // opacidadFondo.id="primeraPantalla";
 
-    //Creamos el botón que inicia el juego y le aplicamos estilos
-    let boton = document.createElement("input");
-    boton.onclick = function () {
-        padre.removeChild(opacidadFondo)
-    }
+    // //Agrego al body el la opacidad de fondo antes del primer hijo que tenga
+    // padre.insertBefore(opacidadFondo, padre.firstChild);
 
-    boton.value = "!JUGAR¡";
-    boton.type = "image";
-    boton.src = "/img/harry.png"
-    boton.position = "absolute";
-    boton.style.fontSize = "66px";
-    boton.style.boxShadow = "5px 10px";
-    boton.style.width = "30%";
+    // //Creamos el botón que inicia el juego y le aplicamos estilos
+    // let boton = document.createElement("input");
+    // boton.onclick = function () {
+    //     padre.removeChild(opacidadFondo)
+    // }
 
-    boton.zIndex = "2";
-    boton.onmouseover = function () {
-        boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
-        boton.style["-webkit-transform"] = "scale(1.2)";
-        boton.style["transform"] = "transform:scale(1.2)";
-    }
-    boton.onmouseout = function () {
-        boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
-        boton.style["-webkit-transform"] = "scale(1)";
-        boton.style["transform"] = "transform:scale(1)";
-    }
+    // //Creo el botón que inicia el juego (imagen de Harry Potter)
+    // boton.id="botonHarry";
+    // boton.value = "!JUGAR¡";
+    // boton.type = "image";
+    // boton.src = "/img/harry.png"
+    // boton.position = "absolute";
 
+    // boton.onmouseover = function () {
+    //     boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+    //     boton.style["-webkit-transform"] = "scale(1.2)";
+    //     boton.style["transform"] = "transform:scale(1.2)";
+    // }
+    // boton.onmouseout = function () {
+    //     boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+    //     boton.style["-webkit-transform"] = "scale(1)";
+    //     boton.style["transform"] = "transform:scale(1)";
+    // }
 
-    opacidadFondo.appendChild(boton);
+    // //Añado el botón a la opacidad previamente creada
+    // opacidadFondo.appendChild(boton);
 
+    // //Creo la caja que tendrá las instrucciones del juego
+    // let cajaReglas = document.createElement("div");
+    // cajaReglas.id="cajaReglas";
 
+    // //Creo el párrafo que tendrá el texto de las reglas
+    // let parrafoReglas = document.createElement("p");
+    // parrafoReglas.id = "parrafoReglas"
 
+    // //Creo el texto de las reglas
+    // let textoReglas = document.createTextNode("Bienvenido a Medwarts, donde la magia solo es para unos pocos.\n¿Serás capaz de robar los exámenes de Historia de la Magia? Se encuentran en la mesa del profesor Jeisnake así que solo tienes que llegar a ella pero !CUIDADO¡, el profesor está vigilando. \nSolo podrás moverte una casilla en horizontal o en vertical en cada turno que te toque pero recuerda, el malvado profesor también se moverá de la misma manera en tu búsqueda.\nUna vez tengas los exámenes la puerta encantada se abrirá y podras volver a tu habitación con el tesoro. !SUERTE¡ ");
+
+    // parrafoReglas.appendChild(textoReglas)
+    // cajaReglas.appendChild(parrafoReglas);
+    // opacidadFondo.appendChild(cajaReglas);
 
 
-//------------------------------------------------------------------------------------------------------
+
+
+
+
+    //------------------------------------------------------------------------------------------------------
 
 
     // Selecciono todas las celdas de la tabla
@@ -68,14 +70,16 @@ window.onload = () => {
     // Genero la posición de los examenes, guardo dicha posición en una variable y coloco los examenes en el tablero
     let posicion_examenes = parseInt(Math.random() * 62 + 1);
     celdas[posicion_examenes].id = "examenes";
+    if (posicion_examenes == posicion_prota) {
+        posicion_examenes++;
+    }
 
     //Posición inicial malo
     let posicion_malo = parseInt(Math.random() * (63 - 31) + 31);
     if (posicion_malo == posicion_examenes) {
-        posicion_malo = posicion_malo++;
+        posicion_malo++;
     }
-    let malo = document.querySelectorAll("td")[posicion_malo];
-    malo.id = "malo";
+    celdas[posicion_malo].id = "malo";
 
     // Creo una variable inicializada a "false" para almacenar los examenes (false: no tiene los examenes  --  True: tiene los examenes)
     let examanes_inventario = false;
@@ -113,12 +117,14 @@ window.onload = () => {
 
 }
 
-function moverMalo(celdas, pos_prota) {
-    //Cambio la colección html a array
-    celdas = Array.from(celdas)
+//MOVER MALO
+function moverMalo(listaCeldas, pos_prota) {
+    let pos = pos_prota;
 
-    //Creo la matriz donde voy a almacenar las celdas
-    let matriz = [
+    let celdas = listaCeldas;
+
+    //Creo la tablero donde voy a almacenar las celdas
+    let tablero = [
         [],
         [],
         [],
@@ -130,43 +136,71 @@ function moverMalo(celdas, pos_prota) {
     ];
 
     //Creo dos variables que usaré para almacenar las celdas
-    let contador = 0;
+    let contadorFila = 0;
     let indice = 0;
+    let coordenadas = new Map();
+
+    prueba = 0;
     celdas.forEach(element => {
         indice++;
-        matriz[contador].push(element);
-        if (indice % 8 == 0) {
-            contador++;
-        }
+        tablero[contadorFila].push(element);
         //Guardo las coordenadas del protagonista
-        if(element.id =="prota"){
-            let filaProta = contador;
-            let columnaProta = matriz[filaProta].indexOf(element);
+        if (element.id == "prota") {
+            coordenadas["filaProta"] = contadorFila;
+            coordenadas["columnaProta"] = tablero[contadorFila].indexOf(element);
+        }
+        if (element.id == "malo") {
+            coordenadas["filaMalo"] = contadorFila;
+            coordenadas["columnaMalo"] = tablero[contadorFila].indexOf(element);
+        }
+
+        if (indice % 8 == 0) {
+            contadorFila++;
+        }
+
+        if (indice == celdas.length) {
+            //Llamo a la función "cambiarMalo" y le paso las coordenadas del prota como parámetros
+            cambiarMalo(coordenadas, tablero);
         }
     });
 
-    //Recorro la matriz para cambiar la posición del malo en función de las coordenadas del prota
-    for (let i = 0; i < matriz.length; i++) {
-        for (let j = 0; j < matriz[i].length; j++) {
-            if (matriz[i][j].id == "malo") {
-                matriz[i][j].id = "";
-                if(i < fila){
-                    matriz[i-1][j].id = "malo";
-                }
-            }
-        }
-    }
 
-    // for (const e of matriz) {
-    //     for (const i of e) {
-    //         if(i.id == "prota"){
 
-    //         }
-    //         if(i.id == "malo"){
-    //             i.id == "";
+    // //Creo función cambiar malo que lo mueve en función de las coordenadas del prota pasadas al llamar a la función
+    // function cambiarMalo(tablero, filaProta, columnaProta) {
+    //     let filPro = filaProta;
+    //     let colPro = columnaProta;
+    //     let estructura = tablero;
+    //     let malo = document.getElementById("malo");
+    //     console.log(estructura)
+    //     //Recorro la tablero para cambiar la posición del malo en función de las coordenadas del prota
+    //     for (let i = 0; i < estructura.length; i++) {
+    //         for (let j = 0; j < estructura[i].length; j++) {
+    //             console.log("hola")
     //         }
     //     }
     // }
+
+    //Creo función cambiar malo que lo mueve en función de las coordenadas del prota pasadas al llamar a la función
+    function cambiarMalo(coor, mtr) {
+        let tablero = mtr;
+        let coordenadas = coor;
+        console.log(coordenadas["filaProta"]);
+        console.log(coordenadas["filaMalo"]);
+
+        if((coordenadas["filaProta"] != coordenadas["filaMalo"]) && (coordenadas["columnaProta"] > coordenadas["columnaMalo"]) && ((coordenadas["columnaMalo"] % 2) == 0)){
+            tablero[coordenadas["filaMalo"]][coordenadas["columnaMalo"] + 1].id = "malo";
+        }else if((coordenadas["filaProta"] != coordenadas["filaMalo"]) && (coordenadas["columnaProta"] > coordenadas["columnaMalo"]) && ((coordenadas["columnaMalo"] % 2) != 0)){
+            tablero[coordenadas["filaMalo"] - 1][coordenadas["columnaMalo"]].id = "malo";
+        } else if((coordenadas["filaProta"] != coordenadas["filaMalo"]) && (coordenadas["columnaProta"] > coordenadas["columnaMalo"]) && ((coordenadas["columnaMalo"] % 2) != 0)){
+            tablero[coordenadas["filaMalo"] +1][coordenadas["columnaMalo"]].id = "malo";
+        }else if((coordenadas["filaProta"] != coordenadas["filaMalo"]) && (coordenadas["columnaProta"] > coordenadas["columnaMalo"]) && ((coordenadas["columnaMalo"] % 2) != 0)){
+            tablero[coordenadas["filaMalo"] +1][coordenadas["columnaMalo"]].id = "malo";
+        }
+        
+        tablero[coordenadas["filaMalo"]][coordenadas["columnaMalo"]].id="";
+
+    }
 
 
 
