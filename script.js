@@ -4,7 +4,7 @@ window.onload = () => {
     // //Creo la opacidad de fondo al recargar la página donde se muestran los botones de "jugar" y las dificultades
     // let padre = document.querySelector("body");
     // var opacidadFondo = document.createElement("div");
-    // opacidadFondo.id="primeraPantalla";
+    // opacidadFondo.id = "primeraPantalla";
 
     // //Agrego al body el la opacidad de fondo antes del primer hijo que tenga
     // padre.insertBefore(opacidadFondo, padre.firstChild);
@@ -16,7 +16,7 @@ window.onload = () => {
     // }
 
     // //Creo el botón que inicia el juego (imagen de Harry Potter)
-    // boton.id="botonHarry";
+    // boton.id = "botonHarry";
     // boton.value = "!JUGAR¡";
     // boton.type = "image";
     // boton.src = "/img/harry.png"
@@ -38,7 +38,7 @@ window.onload = () => {
 
     // //Creo la caja que tendrá las instrucciones del juego
     // let cajaReglas = document.createElement("div");
-    // cajaReglas.id="cajaReglas";
+    // cajaReglas.id = "cajaReglas";
 
     // //Creo el párrafo que tendrá el texto de las reglas
     // let parrafoReglas = document.createElement("p");
@@ -185,37 +185,41 @@ function moverMalo(listaCeldas, pos_prota) {
     function cambiarMalo(coor, mtr) {
         let tablero = mtr;
         let coordenadas = coor;
-        console.log(coordenadas["filaProta"]);
-        console.log(coordenadas["filaMalo"]);
 
-        if((coordenadas["filaProta"] != coordenadas["filaMalo"]) && (coordenadas["columnaProta"] > coordenadas["columnaMalo"]) && ((coordenadas["columnaMalo"] % 2) == 0)){
+
+        console.log("fila prota " + coordenadas["filaProta"])
+        console.log("columna prota " + coordenadas["columnaProta"]);
+        console.log("fila malo " + coordenadas["filaMalo"])
+        console.log("columna malo " + coordenadas["columnaMalo"]);
+
+        if ( (((coordenadas["filaMalo"] % 2) == 0) && ((coordenadas["columnaMalo"] % 2) == 0)) ||  (((coordenadas["filaMalo"] % 2) == 1) && ((coordenadas["columnaMalo"] % 2) == 1))  && (coordenadas["columnaProta"] != (tablero.length-1)) && (coordenadas["columnaProta"] > coordenadas["columnaProta"])           ) {
+
+            console.log("suma columna")
             tablero[coordenadas["filaMalo"]][coordenadas["columnaMalo"] + 1].id = "malo";
-        }else if((coordenadas["filaProta"] != coordenadas["filaMalo"]) && (coordenadas["columnaProta"] > coordenadas["columnaMalo"]) && ((coordenadas["columnaMalo"] % 2) != 0)){
-            tablero[coordenadas["filaMalo"] - 1][coordenadas["columnaMalo"]].id = "malo";
-        } else if((coordenadas["filaProta"] != coordenadas["filaMalo"]) && (coordenadas["columnaProta"] > coordenadas["columnaMalo"]) && ((coordenadas["columnaMalo"] % 2) != 0)){
-            tablero[coordenadas["filaMalo"] +1][coordenadas["columnaMalo"]].id = "malo";
-        }else if((coordenadas["filaProta"] != coordenadas["filaMalo"]) && (coordenadas["columnaProta"] > coordenadas["columnaMalo"]) && ((coordenadas["columnaMalo"] % 2) != 0)){
-            tablero[coordenadas["filaMalo"] +1][coordenadas["columnaMalo"]].id = "malo";
+
+        } else if ( (((coordenadas["filaMalo"] % 2) == 0) && ((coordenadas["columnaMalo"] % 2) == 0)) ||  (((coordenadas["filaMalo"] % 2) == 0) && ((coordenadas["columnaMalo"] % 2) == 0))  && (coordenadas["columnaProta"] > 0) && (coordenadas["columnaProta"] < coordenadas["columnaProta"])           ){
+            console.log("resta columna")
+            tablero[coordenadas["filaMalo"]][coordenadas["columnaMalo"] - 1].id = "malo";
         }
-        
-        tablero[coordenadas["filaMalo"]][coordenadas["columnaMalo"]].id="";
 
+        tablero[coordenadas["filaMalo"]][coordenadas["columnaMalo"]].id = "";
+
+
+
+
+
+
+        // //Recorro las celdas de la tabla para encontrar la del malo
+        // celdas.forEach(e => {
+        //     if (e.id == "malo") {
+        //         e.id = "";
+        //         // if (pos_prota < celdas.indexOf(e)) {
+        //         //     celdas[celdas.indexOf(e) - 1].id = "malo";
+        //         // }
+        //         if ((pos_prota == celdas.indexOf(e) - 8) || (pos_prota == celdas.indexOf(e) - 16) || (pos_prota == celdas.indexOf(e) - 24) || (pos_prota == celdas.indexOf(e) - 32) || (pos_prota == celdas.indexOf(e) - 40) || (pos_prota == celdas.indexOf(e) - 48) || (pos_prota == celdas.indexOf(e) - 56)) {
+        //             celdas[celdas.indexOf(e) - 8].id = "malo";
+        //         }
+        //     }
+        // });
     }
-
-
-
-
-
-    // //Recorro las celdas de la tabla para encontrar la del malo
-    // celdas.forEach(e => {
-    //     if (e.id == "malo") {
-    //         e.id = "";
-    //         // if (pos_prota < celdas.indexOf(e)) {
-    //         //     celdas[celdas.indexOf(e) - 1].id = "malo";
-    //         // }
-    //         if ((pos_prota == celdas.indexOf(e) - 8) || (pos_prota == celdas.indexOf(e) - 16) || (pos_prota == celdas.indexOf(e) - 24) || (pos_prota == celdas.indexOf(e) - 32) || (pos_prota == celdas.indexOf(e) - 40) || (pos_prota == celdas.indexOf(e) - 48) || (pos_prota == celdas.indexOf(e) - 56)) {
-    //             celdas[celdas.indexOf(e) - 8].id = "malo";
-    //         }
-    //     }
-    // });
 }
