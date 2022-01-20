@@ -75,7 +75,7 @@ window.onload = () => {
     }
 
     //Posición inicial malo
-    let posicion_malo = parseInt(Math.random() * (63 - 31) + 31);
+    let posicion_malo = parseInt(Math.random() * ((celdas.length -1) - 31) + 31);
     if (posicion_malo == posicion_examenes) {
         posicion_malo++;
     }
