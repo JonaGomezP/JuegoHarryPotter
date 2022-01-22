@@ -1,7 +1,11 @@
 table{
     margin: 0 auto;
     width: 500px;
-    height: 500px;
+    height:500px;
+    background-image: url('img/Staffroom_1.png');
+    background-size: 102% 102%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 form{
