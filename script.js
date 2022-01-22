@@ -66,6 +66,10 @@ window.onload = () => {
     let posicion_prota = 0;
     celdas[posicion_prota].id = "prota";
 
+    //Coloco la puerta de salida cerrada
+    let salida = celdas[celdas.length - 1];
+
+
 
     // Genero la posición de los examenes, guardo dicha posición en una variable y coloco los examenes en el tablero
     let posicion_examenes = parseInt(Math.random() * 62 + 1);
@@ -75,7 +79,7 @@ window.onload = () => {
     }
 
     //Posición inicial malo
-    let posicion_malo = parseInt(Math.random() * ((celdas.length -1) - 31) + 31);
+    let posicion_malo = parseInt(Math.random() * ((celdas.length - 1) - 31) + 31);
     if (posicion_malo == posicion_examenes) {
         posicion_malo++;
     }
@@ -100,10 +104,11 @@ window.onload = () => {
                 if (posicion_prota == posicion_examenes) {
                     examanes_inventario = true;
                     inventario.textContent = "Examenes";
+                    salida.style.background = "green";
                 }
 
                 //Cuando se mueve al prota, se mueve automáticamente al malo
-                let timer = setTimeout(moverMalo, 1000, celdas, Array.from(celdas).indexOf(e.target));
+                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
             }
             else if (posicion_prota == Array.from(celdas).indexOf(e.target)) {
                 alert("El protagonista no se puede quedar en la misma posición. Intente moverlo a otra posición diferente a la que se encuentra.");
@@ -118,8 +123,10 @@ window.onload = () => {
 }
 
 //MOVER MALO
-function moverMalo(listaCeldas, pos_prota) {
-    let pos = pos_prota;
+function moverMalo(examenes, listaCeldas) {
+
+    //Guardo el estado de los exámenes
+    let examanes_inventario = examenes;
 
     let celdas = listaCeldas;
 
@@ -146,12 +153,17 @@ function moverMalo(listaCeldas, pos_prota) {
         tablero[contadorFila].push(element);
         //Guardo las coordenadas del protagonista
         if (element.id == "prota") {
-            coordenadas["filaProta"] = contadorFila;
-            coordenadas["columnaProta"] = tablero[contadorFila].indexOf(element);
+            coordenadas.filaProta = contadorFila;
+            coordenadas.columnaProta = tablero[contadorFila].indexOf(element);
         }
         if (element.id == "malo") {
-            coordenadas["filaMalo"] = contadorFila;
-            coordenadas["columnaMalo"] = tablero[contadorFila].indexOf(element);
+            coordenadas.filaMalo = contadorFila;
+            coordenadas.columnaMalo = tablero[contadorFila].indexOf(element);
+        }
+
+        if(element.id == "examenes"){
+            coordenadas.filaExamenes = contadorFila;
+            coordenadas.columnaExamenes = tablero[contadorFila].indexOf(element);
         }
 
         if (indice % 8 == 0) {
@@ -160,66 +172,82 @@ function moverMalo(listaCeldas, pos_prota) {
 
         if (indice == celdas.length) {
             //Llamo a la función "cambiarMalo" y le paso las coordenadas del prota como parámetros
-            cambiarMalo(coordenadas, tablero);
+            // cambiarMalo(coordenadas, tablero);
         }
     });
 
 
 
-    // //Creo función cambiar malo que lo mueve en función de las coordenadas del prota pasadas al llamar a la función
-    // function cambiarMalo(tablero, filaProta, columnaProta) {
-    //     let filPro = filaProta;
-    //     let colPro = columnaProta;
-    //     let estructura = tablero;
-    //     let malo = document.getElementById("malo");
-    //     console.log(estructura)
-    //     //Recorro la tablero para cambiar la posición del malo en función de las coordenadas del prota
-    //     for (let i = 0; i < estructura.length; i++) {
-    //         for (let j = 0; j < estructura[i].length; j++) {
-    //             console.log("hola")
-    //         }
-    //     }
-    // }
+
+
+    if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
+
+        if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
+            tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+        } else {
+            tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+        }
+
+    } else if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
+
+        if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
+            tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+        } else {
+            tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+        }
+
+    } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
+
+        if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
+            tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+        } else {
+            tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+        }
+
+    } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
+
+        if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
+            tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+        } else {
+            tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+        }
+
+    } else {
+
+        if( (coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)){
+
+            tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+
+        } else if( (coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo) ){
+
+            tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+
+        } else if( (coordenadas.columnaProta == coordenadas.columnaProta) && (coordenadas.filaProta < coordenadas.filaMalo) ){
+
+            tablero[coordenadas.filaMalo - 1 ][coordenadas.columnaMalo].id = "malo";
+
+        } else{
+
+            tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+
+        }
+    }
+
+    tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = ""
 
     //Creo función cambiar malo que lo mueve en función de las coordenadas del prota pasadas al llamar a la función
     function cambiarMalo(coor, mtr) {
         let tablero = mtr;
         let coordenadas = coor;
 
+        //Inicio las condiciones para saber en que coordenadas se encuentra el prota y en asó mover el malo
 
-        console.log("fila prota " + coordenadas["filaProta"])
-        console.log("columna prota " + coordenadas["columnaProta"]);
-        console.log("fila malo " + coordenadas["filaMalo"])
-        console.log("columna malo " + coordenadas["columnaMalo"]);
-
-        if ( (((coordenadas["filaMalo"] % 2) == 0) && ((coordenadas["columnaMalo"] % 2) == 0)) ||  (((coordenadas["filaMalo"] % 2) == 1) && ((coordenadas["columnaMalo"] % 2) == 1))  && (coordenadas["columnaProta"] != (tablero.length-1)) && (coordenadas["columnaProta"] > coordenadas["columnaProta"])           ) {
-
-            console.log("suma columna")
-            tablero[coordenadas["filaMalo"]][coordenadas["columnaMalo"] + 1].id = "malo";
-
-        } else if ( (((coordenadas["filaMalo"] % 2) == 0) && ((coordenadas["columnaMalo"] % 2) == 0)) ||  (((coordenadas["filaMalo"] % 2) == 0) && ((coordenadas["columnaMalo"] % 2) == 0))  && (coordenadas["columnaProta"] > 0) && (coordenadas["columnaProta"] < coordenadas["columnaProta"])           ){
-            console.log("resta columna")
-            tablero[coordenadas["filaMalo"]][coordenadas["columnaMalo"] - 1].id = "malo";
-        }
-
-        tablero[coordenadas["filaMalo"]][coordenadas["columnaMalo"]].id = "";
+        // tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = "";
 
 
 
 
 
 
-        // //Recorro las celdas de la tabla para encontrar la del malo
-        // celdas.forEach(e => {
-        //     if (e.id == "malo") {
-        //         e.id = "";
-        //         // if (pos_prota < celdas.indexOf(e)) {
-        //         //     celdas[celdas.indexOf(e) - 1].id = "malo";
-        //         // }
-        //         if ((pos_prota == celdas.indexOf(e) - 8) || (pos_prota == celdas.indexOf(e) - 16) || (pos_prota == celdas.indexOf(e) - 24) || (pos_prota == celdas.indexOf(e) - 32) || (pos_prota == celdas.indexOf(e) - 40) || (pos_prota == celdas.indexOf(e) - 48) || (pos_prota == celdas.indexOf(e) - 56)) {
-        //             celdas[celdas.indexOf(e) - 8].id = "malo";
-        //         }
-        //     }
-        // });
     }
 }
