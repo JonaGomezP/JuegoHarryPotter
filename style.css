@@ -97,4 +97,6 @@ form > input:nth-child(4n){
     padding: 0.5%;
 }
 
-
+#puertaAbierta{
+    background-color: greenyellow;
+}

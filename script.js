@@ -97,6 +97,11 @@ window.onload = () => {
         i.onclick = (e) => {
             // Compruebo si el movimiento que quiere hacer el usuario es correcto
             if (posicion_prota + 1 == Array.from(celdas).indexOf(e.target) || posicion_prota - 1 == Array.from(celdas).indexOf(e.target) || posicion_prota + 8 == Array.from(celdas).indexOf(e.target) || posicion_prota - 8 == Array.from(celdas).indexOf(e.target)) {
+
+                comprobarSalida(posicion_prota, celdas,salida);
+
+
+
                 celdas[posicion_prota].id = "";
                 posicion_prota = Array.from(celdas).indexOf(e.target);
                 e.target.id = "prota";
@@ -104,10 +109,10 @@ window.onload = () => {
                 if (posicion_prota == posicion_examenes) {
                     examanes_inventario = true;
                     inventario.textContent = "Examenes";
-                    salida.style.background = "green";
+                    salida.id = "puertaAbierta";
                 }
 
-                //Cuando se mueve al prota, se mueve automáticamente al malo
+                //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
                 let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
             }
             else if (posicion_prota == Array.from(celdas).indexOf(e.target)) {
@@ -161,7 +166,7 @@ function moverMalo(examenes, listaCeldas) {
             coordenadas.columnaMalo = tablero[contadorFila].indexOf(element);
         }
 
-        if(element.id == "examenes"){
+        if (element.id == "examenes") {
             coordenadas.filaExamenes = contadorFila;
             coordenadas.columnaExamenes = tablero[contadorFila].indexOf(element);
         }
@@ -214,40 +219,39 @@ function moverMalo(examenes, listaCeldas) {
 
     } else {
 
-        if( (coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)){
+        if ((coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
 
             tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
 
-        } else if( (coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo) ){
+        } else if ((coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
 
             tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
 
-        } else if( (coordenadas.columnaProta == coordenadas.columnaProta) && (coordenadas.filaProta < coordenadas.filaMalo) ){
+        } else if ((coordenadas.columnaProta == coordenadas.columnaProta) && (coordenadas.filaProta < coordenadas.filaMalo)) {
 
-            tablero[coordenadas.filaMalo - 1 ][coordenadas.columnaMalo].id = "malo";
+            tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
 
-        } else{
+        } else {
 
             tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
 
         }
     }
 
-    tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = ""
-
-    //Creo función cambiar malo que lo mueve en función de las coordenadas del prota pasadas al llamar a la función
-    function cambiarMalo(coor, mtr) {
-        let tablero = mtr;
-        let coordenadas = coor;
-
-        //Inicio las condiciones para saber en que coordenadas se encuentra el prota y en asó mover el malo
-
-        // tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = "";
+    tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = "";
 
 
+}
+
+function comprobarSalida( pos_prota, listaCeldas){
+    let posicion_prota = pos_prota;
+    let celdas = listaCeldas;
 
 
-
-
+    console.log(exit)
+    
+    if( (((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1 )) && (celdas[celdas.length-1].id == "puertaAbierta") ){
+        alert("Has ganado!!!")
     }
 }
+
