@@ -248,7 +248,6 @@ function comprobarSalida( pos_prota, listaCeldas){
     let celdas = listaCeldas;
 
 
-    console.log(exit)
     
     if( (((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1 )) && (celdas[celdas.length-1].id == "puertaAbierta") ){
         alert("Has ganado!!!")
