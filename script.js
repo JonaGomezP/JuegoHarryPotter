@@ -83,11 +83,11 @@ window.onload = () => {
     // Selecciono el "inventario"
     let inventario = document.getElementById("inventario");
 
-    // Recorro todas las celdas de la tabla
+    // Recorro todas las celdas de la tabla (Mover con ratón)
     celdas.forEach((i) => {
         // Añado el evento "onclick" a cada una de las celdas
         i.onclick = (e) => {
-            // Compruebo si el movimiento que quiere hacer el usuario es correcto
+            // Compruebo si el movimiento que quiere hacer el usuario es correcto (Compruebo la celda en la que clica el usuario con las posibles opciones a las que puede moverse el prota)
             if (posicion_prota + 1 == Array.from(celdas).indexOf(e.target) || posicion_prota - 1 == Array.from(celdas).indexOf(e.target) || posicion_prota + 8 == Array.from(celdas).indexOf(e.target) || posicion_prota - 8 == Array.from(celdas).indexOf(e.target)) {
                 celdas[posicion_prota].id = "";
                 posicion_prota = Array.from(celdas).indexOf(e.target);
@@ -110,6 +110,60 @@ window.onload = () => {
 
         }
     });
+
+    // Mover pulsando culsores del teclado
+    let derecha = [7,15,23,31,39,47,55,63];
+    document.addEventListener('keyup',(e)=>{
+            // Mover a la izquierda
+            if (e.keyCode==37) {
+                if (derecha.includes(posicion_prota-1) || posicion_prota-1<0) {
+                    alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+                }
+                else{
+                    celdas[posicion_prota].id = "";
+                    posicion_prota -= 1;
+                    celdas[posicion_prota].id = "prota";
+                }
+            }
+            // Mover a la derecha
+            else if (e.keyCode==39) {
+                if ((posicion_prota+1)%8==0 || posicion_prota+1==celdas.length) {
+                    alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+                }
+                else{
+                    celdas[posicion_prota].id = "";
+                    posicion_prota += 1;
+                    celdas[posicion_prota].id = "prota";
+                }
+            }
+            // Mover arriba
+            else if (e.keyCode==38) {
+                if (posicion_prota-8<0) {
+                    alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+                }
+                else{
+                    celdas[posicion_prota].id = "";
+                    posicion_prota -= 8;
+                    celdas[posicion_prota].id = "prota";
+                }
+            }
+            // Mover abajo
+            else if (e.keyCode==40) {
+                if (posicion_prota+8>=celdas.length) {
+                    alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+                }
+                else{
+                    celdas[posicion_prota].id = "";
+                    posicion_prota += 8;
+                    celdas[posicion_prota].id = "prota";
+                }
+            }
+            // Comprueba si el prota ha conseguido llegar a la celda de los examenes
+            if (posicion_prota == posicion_examenes) {
+                examanes_inventario = true;
+                inventario.textContent = "Examenes";
+            }
+        });
 
 }
 
