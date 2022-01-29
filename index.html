@@ -9,7 +9,7 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <table border="1">
+    <table border="1" id="tablero">
         <tr>
             <td></td>
             <td></td>
@@ -96,6 +96,14 @@
         <input type="button" value="IZQ" name="izquierda"><input type="button" value="DER" name="derecha"><br>
         <input type="button" value="ABJ" name="abajo">
     </form> -->
-    <div id="inventario"></div>
+    <div id="inventario">
+        <caption>Inventario</caption>
+        <table border="1" id="boxs-inventario">
+            <tr>
+                <td id="img"></td>
+                <td id="info"></td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

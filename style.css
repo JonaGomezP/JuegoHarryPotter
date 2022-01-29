@@ -1,4 +1,4 @@
-table{
+#tablero{
     margin: 0 auto;
     width: 500px;
     height:500px;
@@ -6,40 +6,38 @@ table{
     background-size: 102% 102%;
     background-repeat: no-repeat;
     background-position: center;
-}
-
-form{
-    text-align: center;
-    margin-top: 1%;
-}
-
-form > input{
-    text-align: center;
-    width: 5%;
-    margin-bottom: 0.2%;
-}
-
-form > input:nth-child(4n){
-    margin-left: 1%;
+    border-collapse: collapse;
 }
 
 #prota{
-    background-color: red;
+    background-image: url("img/harry_prota.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#prota_con_ex{
+    background-image: url("img/harry_con_examenes.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #examenes{
-    background-color: blue;
+    background-image: url("img/examenes.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #inventario{
     position: fixed;
     top: 0px;
     left: 0px;
-    border: 1px solid black;
     margin: 1%;
-    width: 70px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    padding: 0.5%;
+}
+
+#boxs-inventario{
+    border-collapse: collapse;
+    display: none;
 }
