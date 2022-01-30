@@ -53,9 +53,6 @@ window.onload = () => {
 
 
 
-
-
-
     //------------------------------------------------------------------------------------------------------
 
 
@@ -98,7 +95,7 @@ window.onload = () => {
             // Compruebo si el movimiento que quiere hacer el usuario es correcto
             if (posicion_prota + 1 == Array.from(celdas).indexOf(e.target) || posicion_prota - 1 == Array.from(celdas).indexOf(e.target) || posicion_prota + 8 == Array.from(celdas).indexOf(e.target) || posicion_prota - 8 == Array.from(celdas).indexOf(e.target)) {
 
-                comprobarSalida(posicion_prota, celdas,salida);
+                comprobarSalida(posicion_prota, celdas, salida);
 
 
 
@@ -124,7 +121,16 @@ window.onload = () => {
 
         }
     });
+}
 
+//Creo la función "comprobarSalida" que recibe como parámetros la posición del prota y la lista de celdas. Si la celda en la que está tiene el id "puertaAbierta" significa que tiene los exámenes y puede salir
+function comprobarSalida(pos_prota, listaCeldas) {
+    let posicion_prota = pos_prota;
+    let celdas = listaCeldas;
+
+    if ((((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1)) && (celdas[celdas.length - 1].id == "puertaAbierta")) {
+        alert("Has ganado!!!")
+    }
 }
 
 //MOVER MALO
@@ -182,75 +188,109 @@ function moverMalo(examenes, listaCeldas) {
     });
 
 
+   
 
 
+
+
+    tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = "";
 
     if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
 
         if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
             tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+            coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
+            console.log("columna cambiada malo");
         } else {
             tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+            // coordenadas.filaMalo = (coordenadas.filaMalo - 1);
+            coordenadas.filaMalo = coordenadas.filaMalo - 1;
+            console.log("fila cambiada malo");
+
+
         }
+
+       
 
     } else if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
 
         if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
             tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+            coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
         } else {
             tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+            coordenadas.filaMalo = coordenadas.filaMalo -1;
         }
+
+        
 
     } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
 
         if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
             tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+            coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
         } else {
             tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+            coordenadas.filaMalo = coordenadas.filaMalo + 1;
         }
+
+      
 
     } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
 
         if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
             tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+            coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
         } else {
             tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+            coordenadas.filaMalo = coordenadas.filaMalo + 1;
         }
+        
 
     } else {
 
         if ((coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
 
             tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+            coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
 
         } else if ((coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
 
             tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+            coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
 
         } else if ((coordenadas.columnaProta == coordenadas.columnaProta) && (coordenadas.filaProta < coordenadas.filaMalo)) {
 
             tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+            coordenadas.filaMalo = coordenadas.filaMalo - 1;
 
         } else {
-
             tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-
+            coordenadas.filaMalo = coordenadas.filaMalo + 1;
         }
+        
     }
 
-    tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = "";
+
+
+    //Llamo a la función "perder" pasando como parámetros el tablero y las coordenadas del prota y el malo. 
+    perder(coordenadas)
+
+
 
 
 }
 
-function comprobarSalida( pos_prota, listaCeldas){
-    let posicion_prota = pos_prota;
-    let celdas = listaCeldas;
 
+// Comprueba si al moverse el malo pilla o no al prota, recibiendo el tablero y las coordendas como parámetros
+function perder(coord) {
+    coordenadas = coord;
 
-    
-    if( (((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1 )) && (celdas[celdas.length-1].id == "puertaAbierta") ){
-        alert("Has ganado!!!")
+    if(coordenadas.filaMalo === coordenadas.filaProta && coordenadas.columnaMalo === coordenadas.columnaProta){
+        let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
+        if (perdedor){
+            location.reload();
+        }
     }
 }
 
