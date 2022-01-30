@@ -162,7 +162,8 @@ window.onload = () => {
             }
             // Mover abajo
             else if (e.keyCode==40) {
-                if (posicion_prota+8>=celdas.length) {
+                // console.log((posicion_prota+8)+">"+celdas.length);
+                if (posicion_prota+8>=64) { //celdas.length
                     alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
                 }
                 else{
