@@ -120,6 +120,85 @@ window.onload = () => {
 
         }
     });
+
+    // Compruebo si el protagonista ha conseguido los examenes
+    if (posicion_prota == posicion_examenes) {
+        examanes_inventario = true;
+        inventario.textContent = "Examenes";
+        salida.id = "puertaAbierta";
+    }
+
+    // Mover pulsando culsores del teclado
+    let derecha = [7, 15, 23, 31, 39, 47, 55, 63];
+    document.addEventListener('keyup', (e) => {
+        // Mover a la izquierda
+        if (e.keyCode == 37) {
+            if (derecha.includes(posicion_prota - 1) || posicion_prota - 1 < 0) {
+                alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else {
+                celdas[posicion_prota].id = "";
+                posicion_prota -= 1;
+                celdas[posicion_prota].id = "prota";
+                //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
+                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
+            }
+        }
+        // Mover a la derecha
+        else if (e.keyCode == 39) {
+            if ((posicion_prota + 1) % 8 == 0 || posicion_prota + 1 == celdas.length) {
+                alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else {
+                celdas[posicion_prota].id = "";
+                posicion_prota += 1;
+                celdas[posicion_prota].id = "prota";
+                //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
+                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
+            }
+        }
+        // Mover arriba
+        else if (e.keyCode == 38) {
+            if (posicion_prota - 8 < 0) {
+                alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else {
+                celdas[posicion_prota].id = "";
+                posicion_prota -= 8;
+                celdas[posicion_prota].id = "prota";
+                //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
+                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
+            }
+        }
+        // Mover abajo
+        else if (e.keyCode == 40) {
+            // console.log((posicion_prota+8)+">"+celdas.length);
+            if (posicion_prota + 8 >= 64) { //celdas.length
+                alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else {
+                celdas[posicion_prota].id = "";
+                posicion_prota += 8;
+                celdas[posicion_prota].id = "prota";
+                //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
+                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
+            }
+        }
+        // Comprueba si el prota ha conseguido llegar a la celda de los examenes
+        if (posicion_prota == posicion_examenes) {
+            examanes_inventario = true;
+            inventario.textContent = "Examenes";
+        }
+
+        // Compruebo si el protagonista ha conseguido los examenes
+        if (posicion_prota == posicion_examenes) {
+            examanes_inventario = true;
+            inventario.textContent = "Examenes";
+            salida.id = "puertaAbierta";
+        }
+    });
+
+
 }
 
 //Creo la función "comprobarSalida" que recibe como parámetros la posición del prota y la lista de celdas. Si la celda en la que está tiene el id "puertaAbierta" significa que tiene los exámenes y puede salir
@@ -187,7 +266,7 @@ function moverMalo(examenes, listaCeldas) {
     });
 
 
-   
+
 
 
 
@@ -209,7 +288,7 @@ function moverMalo(examenes, listaCeldas) {
 
         }
 
-       
+
 
     } else if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
 
@@ -218,10 +297,10 @@ function moverMalo(examenes, listaCeldas) {
             coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
         } else {
             tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-            coordenadas.filaMalo = coordenadas.filaMalo -1;
+            coordenadas.filaMalo = coordenadas.filaMalo - 1;
         }
 
-        
+
 
     } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
 
@@ -233,7 +312,7 @@ function moverMalo(examenes, listaCeldas) {
             coordenadas.filaMalo = coordenadas.filaMalo + 1;
         }
 
-      
+
 
     } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
 
@@ -244,7 +323,7 @@ function moverMalo(examenes, listaCeldas) {
             tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
             coordenadas.filaMalo = coordenadas.filaMalo + 1;
         }
-        
+
 
     } else {
 
@@ -267,7 +346,7 @@ function moverMalo(examenes, listaCeldas) {
             tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
             coordenadas.filaMalo = coordenadas.filaMalo + 1;
         }
-        
+
     }
 
 
@@ -285,9 +364,9 @@ function moverMalo(examenes, listaCeldas) {
 function perder(coord) {
     coordenadas = coord;
 
-    if(coordenadas.filaMalo === coordenadas.filaProta && coordenadas.columnaMalo === coordenadas.columnaProta){
+    if (coordenadas.filaMalo === coordenadas.filaProta && coordenadas.columnaMalo === coordenadas.columnaProta) {
         let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
-        if (perdedor){
+        if (perdedor) {
             location.reload();
         }
     }
