@@ -28,6 +28,7 @@ table{
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
+    filter: drop-shadow(0 0 5rem #ccb102a9);
 }
 
 #inventario{
