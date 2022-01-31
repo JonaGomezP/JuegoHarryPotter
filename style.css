@@ -73,18 +73,33 @@ form > input{
 
 form > input:nth-child(4n){
     margin-left: 1%;
+    height:500px;
+    background-image: url('img/habitacion.png');
+    background-size: 102% 102%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-collapse: collapse;
 }
 
 #prota{
-    background-color: red;
+    background-image: url("img/harry_prota.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #malo{
-    background-color: black;
+    background-image: url("img/voldemort.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #examenes{
-    background-color: blue;
+    background-image: url("img/examenes.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #inventario{

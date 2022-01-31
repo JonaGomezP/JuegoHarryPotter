@@ -1,4 +1,3 @@
-
 window.onload = () => {
 
     // //Creo la opacidad de fondo al recargar la página donde se muestran los botones de "jugar" y las dificultades
@@ -53,6 +52,9 @@ window.onload = () => {
 
 
 
+
+
+
     //------------------------------------------------------------------------------------------------------
 
 
@@ -88,11 +90,11 @@ window.onload = () => {
     // Selecciono el "inventario"
     let inventario = document.getElementById("inventario");
 
-    // Recorro todas las celdas de la tabla
+    // Recorro todas las celdas de la tabla (Mover con ratón)
     celdas.forEach((i) => {
         // Añado el evento "onclick" a cada una de las celdas
         i.onclick = (e) => {
-            // Compruebo si el movimiento que quiere hacer el usuario es correcto
+            // Compruebo si el movimiento que quiere hacer el usuario es correcto (Compruebo la celda en la que clica el usuario con las posibles opciones a las que puede moverse el prota)
             if (posicion_prota + 1 == Array.from(celdas).indexOf(e.target) || posicion_prota - 1 == Array.from(celdas).indexOf(e.target) || posicion_prota + 8 == Array.from(celdas).indexOf(e.target) || posicion_prota - 8 == Array.from(celdas).indexOf(e.target)) {
 
                 comprobarSalida(posicion_prota, celdas, salida);
@@ -131,6 +133,61 @@ function comprobarSalida(pos_prota, listaCeldas) {
     if ((((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1)) && (celdas[celdas.length - 1].id == "puertaAbierta")) {
         alert("Has ganado!!!")
     }
+    // Mover pulsando culsores del teclado
+    let derecha = [7, 15, 23, 31, 39, 47, 55, 63];
+    document.addEventListener('keyup', (e) => {
+        // Mover a la izquierda
+        if (e.keyCode == 37) {
+            if (derecha.includes(posicion_prota - 1) || posicion_prota - 1 < 0) {
+                alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else {
+                celdas[posicion_prota].id = "";
+                posicion_prota -= 1;
+                celdas[posicion_prota].id = "prota";
+            }
+        }
+        // Mover a la derecha
+        else if (e.keyCode == 39) {
+            if ((posicion_prota + 1) % 8 == 0 || posicion_prota + 1 == celdas.length) {
+                alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else {
+                celdas[posicion_prota].id = "";
+                posicion_prota += 1;
+                celdas[posicion_prota].id = "prota";
+            }
+        }
+        // Mover arriba
+        else if (e.keyCode == 38) {
+            if (posicion_prota - 8 < 0) {
+                alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else {
+                celdas[posicion_prota].id = "";
+                posicion_prota -= 8;
+                celdas[posicion_prota].id = "prota";
+            }
+        }
+        // Mover abajo
+        else if (e.keyCode == 40) {
+            // console.log((posicion_prota+8)+">"+celdas.length);
+            if (posicion_prota + 8 >= 64) { //celdas.length
+                alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else {
+                celdas[posicion_prota].id = "";
+                posicion_prota += 8;
+                celdas[posicion_prota].id = "prota";
+            }
+        }
+        // Comprueba si el prota ha conseguido llegar a la celda de los examenes
+        if (posicion_prota == posicion_examenes) {
+            examanes_inventario = true;
+            inventario.textContent = "Examenes";
+        }
+    });
+
 }
 
 //MOVER MALO
@@ -188,12 +245,15 @@ function moverMalo(examenes, listaCeldas) {
     });
 
 
-   
+
 
 
 
 
     tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = "";
+
+
+
 
     if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
 
@@ -210,7 +270,7 @@ function moverMalo(examenes, listaCeldas) {
 
         }
 
-       
+
 
     } else if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
 
@@ -219,10 +279,10 @@ function moverMalo(examenes, listaCeldas) {
             coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
         } else {
             tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-            coordenadas.filaMalo = coordenadas.filaMalo -1;
+            coordenadas.filaMalo = coordenadas.filaMalo - 1;
         }
 
-        
+
 
     } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
 
@@ -234,7 +294,7 @@ function moverMalo(examenes, listaCeldas) {
             coordenadas.filaMalo = coordenadas.filaMalo + 1;
         }
 
-      
+
 
     } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
 
@@ -245,7 +305,7 @@ function moverMalo(examenes, listaCeldas) {
             tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
             coordenadas.filaMalo = coordenadas.filaMalo + 1;
         }
-        
+
 
     } else {
 
@@ -268,7 +328,7 @@ function moverMalo(examenes, listaCeldas) {
             tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
             coordenadas.filaMalo = coordenadas.filaMalo + 1;
         }
-        
+
     }
 
 
@@ -276,21 +336,30 @@ function moverMalo(examenes, listaCeldas) {
     //Llamo a la función "perder" pasando como parámetros el tablero y las coordenadas del prota y el malo. 
     perder(coordenadas)
 
+    tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = "";
 
+    // Comprueba si al moverse el malo pilla o no al prota, recibiendo el tablero y las coordendas como parámetros
+    function perder(coord) {
+        coordenadas = coord;
 
+        if (coordenadas.filaMalo === coordenadas.filaProta && coordenadas.columnaMalo === coordenadas.columnaProta) {
+            let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
+            if (perdedor) {
+                location.reload();
+            }
+        }
+    }
 
 }
 
+function comprobarSalida(pos_prota, listaCeldas) {
+    let posicion_prota = pos_prota;
+    let celdas = listaCeldas;
 
-// Comprueba si al moverse el malo pilla o no al prota, recibiendo el tablero y las coordendas como parámetros
-function perder(coord) {
-    coordenadas = coord;
 
-    if(coordenadas.filaMalo === coordenadas.filaProta && coordenadas.columnaMalo === coordenadas.columnaProta){
-        let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
-        if (perdedor){
-            location.reload();
-        }
+
+    if ((((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1)) && (celdas[celdas.length - 1].id == "puertaAbierta")) {
+        alert("Has ganado!!!")
     }
 }
 
