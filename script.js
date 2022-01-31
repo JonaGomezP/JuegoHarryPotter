@@ -196,7 +196,6 @@ window.onload = () => {
             salida.id = "puertaAbierta";
         }
 
-
     });
 
 
