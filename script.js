@@ -196,6 +196,9 @@ window.onload = () => {
             inventario.textContent = "Examenes";
             salida.id = "puertaAbierta";
         }
+
+        //Llamo a la función "comprobar salida" para ver si la puerta está abierta
+        comprobarSalida(posicion_prota, celdas, salida);
     });
 
 
