@@ -94,13 +94,13 @@ window.onload = () => {
             // Compruebo si el movimiento que quiere hacer el usuario es correcto
             if (posicion_prota + 1 == Array.from(celdas).indexOf(e.target) || posicion_prota - 1 == Array.from(celdas).indexOf(e.target) || posicion_prota + 8 == Array.from(celdas).indexOf(e.target) || posicion_prota - 8 == Array.from(celdas).indexOf(e.target)) {
 
+                //Llamo a la función "comprobar salida" para ver si la puerta está abierta
                 comprobarSalida(posicion_prota, celdas, salida);
-
-
 
                 celdas[posicion_prota].id = "";
                 posicion_prota = Array.from(celdas).indexOf(e.target);
                 e.target.id = "prota";
+
                 // Compruebo si el protagonista ha conseguido los examenes
                 if (posicion_prota == posicion_examenes) {
                     examanes_inventario = true;
@@ -131,6 +131,10 @@ window.onload = () => {
     // Mover pulsando culsores del teclado
     let derecha = [7, 15, 23, 31, 39, 47, 55, 63];
     document.addEventListener('keyup', (e) => {
+
+        //Llamo a la función "comprobar salida" para ver si la puerta está abierta
+        comprobarSalida(posicion_prota, celdas, salida);
+
         // Mover a la izquierda
         if (e.keyCode == 37) {
             if (derecha.includes(posicion_prota - 1) || posicion_prota - 1 < 0) {
@@ -184,11 +188,6 @@ window.onload = () => {
                 let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
             }
         }
-        // Comprueba si el prota ha conseguido llegar a la celda de los examenes
-        if (posicion_prota == posicion_examenes) {
-            examanes_inventario = true;
-            inventario.textContent = "Examenes";
-        }
 
         // Compruebo si el protagonista ha conseguido los examenes
         if (posicion_prota == posicion_examenes) {
@@ -197,8 +196,6 @@ window.onload = () => {
             salida.id = "puertaAbierta";
         }
 
-        //Llamo a la función "comprobar salida" para ver si la puerta está abierta
-        comprobarSalida(posicion_prota, celdas, salida);
     });
 
 
