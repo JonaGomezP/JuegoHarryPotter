@@ -51,6 +51,13 @@ window.onload = () => {
     // opacidadFondo.appendChild(cajaReglas);
 
 
+    // Ajustamos el volumen del audio y la velocidad del video
+    let audio = document.querySelector("audio");
+    let video = document.querySelector("video");
+    audio.volume = 0.1;
+    audio.play();
+    video.defaultPlaybackRate = 0.5;
+    video.load();
 
     //------------------------------------------------------------------------------------------------------
 
