@@ -1,3 +1,11 @@
+body{
+    background: url(img/howarts.gif) no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
 table{
     margin: 0 auto;
     width: 500px;
@@ -46,15 +54,4 @@ table{
 
 #puertaAbierta{
     background-color: greenyellow;
-}
-
-#video {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    opacity: 0.5;
-    z-index: -1;
-    object-fit: cover;
 }
