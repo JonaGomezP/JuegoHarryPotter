@@ -53,11 +53,8 @@ window.onload = () => {
 
     // Ajustamos el volumen del audio y la velocidad del video
     // let audio = document.querySelector("audio");
-    // let video = document.querySelector("video");
     // audio.volume = 0.1;
     // audio.play();
-    // video.defaultPlaybackRate = 0.5;
-    // video.load();
 
     //------------------------------------------------------------------------------------------------------
 
@@ -116,7 +113,7 @@ window.onload = () => {
                 }
 
                 //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
-                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
+                let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
             }
             else if (posicion_prota == Array.from(celdas).indexOf(e.target)) {
                 alert("El protagonista no se puede quedar en la misma posición. Intente moverlo a otra posición diferente a la que se encuentra.");
@@ -152,7 +149,7 @@ window.onload = () => {
                 posicion_prota -= 1;
                 celdas[posicion_prota].id = "prota";
                 //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
-                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
+                let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
             }
         }
         // Mover a la derecha
@@ -165,7 +162,7 @@ window.onload = () => {
                 posicion_prota += 1;
                 celdas[posicion_prota].id = "prota";
                 //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
-                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
+                let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
             }
         }
         // Mover arriba
@@ -178,7 +175,7 @@ window.onload = () => {
                 posicion_prota -= 8;
                 celdas[posicion_prota].id = "prota";
                 //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
-                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
+                let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
             }
         }
         // Mover abajo
@@ -192,7 +189,7 @@ window.onload = () => {
                 posicion_prota += 8;
                 celdas[posicion_prota].id = "prota";
                 //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
-                let timer = setTimeout(moverMalo, 1000, examanes_inventario, celdas);
+                let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
             }
         }
 
