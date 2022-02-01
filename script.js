@@ -74,7 +74,7 @@ window.onload = () => {
     // Genero la posición de los examenes, guardo dicha posición en una variable y coloco los examenes en el tablero
     let posicion_examenes = parseInt(Math.random() * 62 + 1);
     celdas[posicion_examenes].id = "examenes";
-    if (posicion_examenes == posicion_prota) {
+    if (posicion_examenes == posicion_prota) { //CREO QUE NO HACE FALTA
         posicion_examenes++;
     }
 
@@ -99,7 +99,7 @@ window.onload = () => {
             if (posicion_prota + 1 == Array.from(celdas).indexOf(e.target) || posicion_prota - 1 == Array.from(celdas).indexOf(e.target) || posicion_prota + 8 == Array.from(celdas).indexOf(e.target) || posicion_prota - 8 == Array.from(celdas).indexOf(e.target)) {
 
                 //Llamo a la función "comprobar salida" para ver si la puerta está abierta
-                comprobarSalida(posicion_prota, celdas, salida);
+                // comprobarSalida(posicion_prota, celdas, salida);
 
                 celdas[posicion_prota].id = "";
                 posicion_prota = Array.from(celdas).indexOf(e.target);
@@ -108,8 +108,8 @@ window.onload = () => {
                 // Compruebo si el protagonista ha conseguido los examenes
                 if (posicion_prota == posicion_examenes) {
                     examanes_inventario = true;
-                    inventario.textContent = "Examenes";
                     salida.id = "puertaAbierta";
+                    document.getElementById("box-inventario").style.display = 'flex';
                 }
 
                 //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
@@ -125,12 +125,12 @@ window.onload = () => {
         }
     });
 
-    // Compruebo si el protagonista ha conseguido los examenes
-    if (posicion_prota == posicion_examenes) {
-        examanes_inventario = true;
-        inventario.textContent = "Examenes";
-        salida.id = "puertaAbierta";
-    }
+    // Compruebo si el protagonista ha conseguido los examenes  NO SE PORQUE ESTÁ ESTO AQUÍ
+    // if (posicion_prota == posicion_examenes) {
+    //     examanes_inventario = true;
+    //     inventario.textContent = "Examenes";
+    //     salida.id = "puertaAbierta";
+    // }
 
     // Mover pulsando culsores del teclado
     let derecha = [7, 15, 23, 31, 39, 47, 55, 63];
@@ -196,8 +196,8 @@ window.onload = () => {
         // Compruebo si el protagonista ha conseguido los examenes
         if (posicion_prota == posicion_examenes) {
             examanes_inventario = true;
-            inventario.textContent = "Examenes";
             salida.id = "puertaAbierta";
+            document.getElementById("box-inventario").style.display = 'flex';
         }
 
     });

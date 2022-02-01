@@ -32,6 +32,13 @@ td{
     background-repeat: no-repeat;
 }
 
+#prota_exam{
+    background-image: url("img/harry_con_examenes.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 #malo{
     background-image: url("img/voldemort.png");
     background-size: contain;
@@ -51,13 +58,24 @@ td{
     position: fixed;
     top: 0px;
     left: 0px;
-    border: 1px solid black;
     margin: 1%;
-    width: 70px;
-    height: 50px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     padding: 0.5%;
+    color: white;
+}
+
+#box-inventario{
+    display: none;
+}
+
+#box-inventario > div{
+    padding: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 1px solid white;
 }
 
 #puertaAbierta{
