@@ -58,7 +58,6 @@ window.onload = () => {
 
     //------------------------------------------------------------------------------------------------------
 
-
     // Selecciono todas las celdas de la tabla
     let celdas = document.querySelectorAll("td");
 
@@ -369,6 +368,21 @@ function perder(coord) {
     coordenadas = coord;
 
     if (coordenadas.filaMalo === coordenadas.filaProta && coordenadas.columnaMalo === coordenadas.columnaProta) {
+        // Creo el elemento de audio
+        let audio = document.createElement("audio");
+        // Asigno el atributo autoplay al elemento audio
+        audio.autoplay = true;
+        // Creo el elemento de source
+        let source = document.createElement("source");
+        // Le asigno la ruta del audio
+        source.src = "audio/risa.mp3";
+        // Le asigno el tipo de audio
+        source.type = "audio/mpeg";
+        // Enchancho el source al elemento audio
+        audio.appendChild(source);
+        // Engancho el audio al body
+        document.body.appendChild(audio);
+
         let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
         if (perdedor) {
             location.reload();
