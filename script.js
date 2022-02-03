@@ -383,6 +383,9 @@ function perder(coord) {
         // Engancho el audio al body
         document.body.appendChild(audio);
 
+        //Le doy play al audio
+        audio.play();
+
         let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
         if (perdedor) {
             location.reload();
