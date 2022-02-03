@@ -1,12 +1,14 @@
 *{
     box-sizing: content-box;
+    cursor: none;
 }
 body{
     background: url(img/howarts.gif) no-repeat center center fixed;
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover;
-background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow: hidden;
 }
 
 table{
@@ -14,11 +16,12 @@ table{
     width: fit-content;
     height:fit-content;
     background-image: url('img/habitacion.png');
-    background-size: 102% 102%;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     border-collapse: collapse;
     border: solid 4px rgb(172, 99, 32);
+    
 }
 td{
     width: 100px;
@@ -47,7 +50,7 @@ td{
 }
 
 #examenes{
-    background-image: url("img/examenes.png");
+    background-image: url("/img/examenes.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -81,3 +84,32 @@ td{
 #puertaAbierta{
     background-color: greenyellow;
 }
+
+
+#varita{
+    width: 15%;
+    height: auto;
+    animation-name: efectoVarita ;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+    position: absolute;
+    object-fit: cover;
+    transform: rotate(400deg);
+    z-index: -1;
+}
+
+
+@keyframes efectoObjetivo{
+    from {
+        vertical-align: 0;
+    }
+}
+
+audio{
+    position: fixed;
+    bottom:0;
+    cursor: none;
+    background-color: transparent;
+}
+
+

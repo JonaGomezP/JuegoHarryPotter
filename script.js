@@ -1,3 +1,5 @@
+var timer;
+
 window.onload = () => {
 
     // //Creo la opacidad de fondo al recargar la página donde se muestran los botones de "jugar" y las dificultades
@@ -50,11 +52,36 @@ window.onload = () => {
     // cajaReglas.appendChild(parrafoReglas);
     // opacidadFondo.appendChild(cajaReglas);
 
+    //------------------------------------------------------------------------------------------------------
 
     // Ajustamos el volumen del audio y la velocidad del video
-    // let audio = document.querySelector("audio");
-    // audio.volume = 0.1;
-    // audio.play();
+    let audio = document.querySelector("audio");
+    audio.volume = 1;
+    audio.play();
+
+    //------------------------------------------------------------------------------------------------------
+
+    let objetivo = document.querySelector("img");
+    // centrar la pelota en las coordenadas (pageX, pageY)
+    function moveAt(pageX, pageY) {
+        objetivo.style.left = pageX - objetivo.offsetWidth / 2 + 'px';
+        objetivo.style.top = pageY - objetivo.offsetHeight / 2 + 'px';
+    }
+
+    // mover nuestra pelota posicionada absolutamente bajo el puntero
+    moveAt(event.pageX, event.pageY);
+
+    function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+    }
+
+    // (2) mover la pelota con mousemove
+    document.addEventListener('mousemove', onMouseMove);
+
+
+    objetivo.ondragstart = function () {
+        return false;
+    };
 
     //------------------------------------------------------------------------------------------------------
 
@@ -112,7 +139,7 @@ window.onload = () => {
                 }
 
                 //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
-                let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
+                timer = setTimeout(moverMalo, 100, examanes_inventario, celdas);
             }
             else if (posicion_prota == Array.from(celdas).indexOf(e.target)) {
                 alert("El protagonista no se puede quedar en la misma posición. Intente moverlo a otra posición diferente a la que se encuentra.");
@@ -210,7 +237,8 @@ function comprobarSalida(pos_prota, listaCeldas) {
     let celdas = listaCeldas;
 
     if ((((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1)) && (celdas[celdas.length - 1].id == "puertaAbierta")) {
-        alert("Has ganado!!!")
+        alert("Has ganado!!!");
+        clearTimeout(timer);
     }
 }
 
@@ -384,11 +412,12 @@ function perder(coord) {
         document.body.appendChild(audio);
 
         //Le doy play al audio
+        audio.volume = 0.1;
         audio.play();
 
-        let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
-        if (perdedor) {
-            location.reload();
-        }
+        // let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
+        // if (perdedor) {
+        //     location.reload();
+        // }
     }
 }
