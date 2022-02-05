@@ -113,6 +113,10 @@ window.onload = () => {
 
                 //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
                 let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
+
+                //Llamo a la función "comprobar salida" para ver si la puerta está abierta y el prota se encuentra en ella
+                comprobarSalida(posicion_prota, celdas, salida);
+
             }
             else if (posicion_prota == Array.from(celdas).indexOf(e.target)) {
                 alert("El protagonista no se puede quedar en la misma posición. Intente moverlo a otra posición diferente a la que se encuentra.");
@@ -124,19 +128,12 @@ window.onload = () => {
         }
     });
 
-    // Compruebo si el protagonista ha conseguido los examenes  NO SE PORQUE ESTÁ ESTO AQUÍ
-    // if (posicion_prota == posicion_examenes) {
-    //     examanes_inventario = true;
-    //     inventario.textContent = "Examenes";
-    //     salida.id = "puertaAbierta";
-    // }
-
     // Mover pulsando culsores del teclado
     let derecha = [7, 15, 23, 31, 39, 47, 55, 63];
     document.addEventListener('keyup', (e) => {
 
         //Llamo a la función "comprobar salida" para ver si la puerta está abierta
-        comprobarSalida(posicion_prota, celdas, salida);
+        // comprobarSalida(posicion_prota, celdas, salida);
 
         // Mover a la izquierda
         if (e.keyCode == 37) {
@@ -199,6 +196,9 @@ window.onload = () => {
             document.getElementById("box-inventario").style.display = 'flex';
         }
 
+        //Llamo a la función "comprobar salida" para ver si la puerta está abierta y el prota se encuentra en ella
+        comprobarSalida(posicion_prota, celdas, salida);
+
     });
 
 
@@ -209,8 +209,12 @@ function comprobarSalida(pos_prota, listaCeldas) {
     let posicion_prota = pos_prota;
     let celdas = listaCeldas;
 
-    if ((((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1)) && (celdas[celdas.length - 1].id == "puertaAbierta")) {
-        alert("Has ganado!!!")
+    // if ((((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1)) && (celdas[celdas.length - 1].id == "puertaAbierta")) {
+    //     alert("Has ganado!!!")
+    // }
+    if (posicion_prota == celdas.length-1) {
+        alert("Has ganado!!!");
+        location.reload();
     }
 }
 
