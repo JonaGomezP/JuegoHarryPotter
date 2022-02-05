@@ -73,9 +73,6 @@ window.onload = () => {
     // Genero la posición de los examenes, guardo dicha posición en una variable y coloco los examenes en el tablero
     let posicion_examenes = parseInt(Math.random() * 62 + 1);
     celdas[posicion_examenes].id = "examenes";
-    if (posicion_examenes == posicion_prota) { //CREO QUE NO HACE FALTA
-        posicion_examenes++;
-    }
 
     //Posición inicial malo
     let posicion_malo = parseInt(Math.random() * ((celdas.length - 1) - 31) + 31);
@@ -86,9 +83,6 @@ window.onload = () => {
 
     // Creo una variable inicializada a "false" para almacenar los examenes (false: no tiene los examenes  --  True: tiene los examenes)
     let examanes_inventario = false;
-
-    // Selecciono el "inventario"
-    let inventario = document.getElementById("inventario");
 
     // Recorro todas las celdas de la tabla
     celdas.forEach((i) => {
