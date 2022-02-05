@@ -15,7 +15,7 @@ table{
     margin: 0 auto;
     width: fit-content;
     height:fit-content;
-    background-image: url('img/habitacion.png');
+    background-image: url('img/habitacion1.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -80,9 +80,19 @@ td{
     color: white;
     border: 1px solid white;
 }
-
+#puertaCerrada{
+    background-image: url("/img/puerta-cerrada.png");
+    background-size: 70%;
+    background-position: top;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 5rem #ccb102a9);
+}
 #puertaAbierta{
-    background-color: greenyellow;
+    background-image: url("/img/puerta-abierta.png");
+    background-size: 70%;
+    background-position: top left;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 5rem #ccb102a9);
 }
 
 
