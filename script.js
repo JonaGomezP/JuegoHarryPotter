@@ -84,6 +84,17 @@ window.onload = () => {
     // Creo una variable inicializada a "false" para almacenar los examenes (false: no tiene los examenes  --  True: tiene los examenes)
     let examanes_inventario = false;
 
+    let obstaculos=[];
+    let cont = 0;
+    do {
+        let num = parseInt(Math.random()*62+1);
+        if (num != posicion_malo && num != posicion_examenes && !obstaculos.includes(num)) {
+            obstaculos.push(num);
+            cont++;
+            celdas[num].className = "obstaculos";
+        }
+    } while (cont<=4);
+
     // Recorro todas las celdas de la tabla
     celdas.forEach((i) => {
         // Añado el evento "onclick" a cada una de las celdas
@@ -94,9 +105,15 @@ window.onload = () => {
                 //Llamo a la función "comprobar salida" para ver si la puerta está abierta
                 // comprobarSalida(posicion_prota, celdas, salida);
 
-                celdas[posicion_prota].id = "";
-                posicion_prota = Array.from(celdas).indexOf(e.target);
-                e.target.id = "prota";
+                if (obstaculos.includes(Array.from(celdas).indexOf(e.target))) {
+                    alert("No puedes moverte a esa posición porque hay un obstaculo");
+                }
+                else{
+                    celdas[posicion_prota].id = "";
+                    posicion_prota = Array.from(celdas).indexOf(e.target);
+                    e.target.id = "prota";
+                    let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
+                }
 
                 // Compruebo si el protagonista ha conseguido los examenes
                 if (posicion_prota == posicion_examenes) {
@@ -106,7 +123,7 @@ window.onload = () => {
                 }
 
                 //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
-                let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
+                // let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
 
                 //Llamo a la función "comprobar salida" para ver si la puerta está abierta y el prota se encuentra en ella
                 comprobarSalida(posicion_prota, celdas, salida);
@@ -134,6 +151,9 @@ window.onload = () => {
             if (derecha.includes(posicion_prota - 1) || posicion_prota - 1 < 0) {
                 alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
             }
+            else if (obstaculos.includes(posicion_prota - 1)) {
+                alert("No puedes moverte a esa posición porque hay un obstaculo");
+            }
             else {
                 celdas[posicion_prota].id = "";
                 posicion_prota -= 1;
@@ -146,6 +166,9 @@ window.onload = () => {
         else if (e.keyCode == 39) {
             if ((posicion_prota + 1) % 8 == 0 || posicion_prota + 1 == celdas.length) {
                 alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else if (obstaculos.includes(posicion_prota + 1)) {
+                alert("No puedes moverte a esa posición porque hay un obstaculo");
             }
             else {
                 celdas[posicion_prota].id = "";
@@ -160,6 +183,9 @@ window.onload = () => {
             if (posicion_prota - 8 < 0) {
                 alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
             }
+            else if (obstaculos.includes(posicion_prota - 8)) {
+                alert("No puedes moverte a esa posición porque hay un obstaculo");
+            }
             else {
                 celdas[posicion_prota].id = "";
                 posicion_prota -= 8;
@@ -170,9 +196,11 @@ window.onload = () => {
         }
         // Mover abajo
         else if (e.keyCode == 40) {
-            // console.log((posicion_prota+8)+">"+celdas.length);
             if (posicion_prota + 8 >= 64) { //celdas.length
                 alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
+            }
+            else if (obstaculos.includes(posicion_prota + 8)) {
+                alert("No puedes moverte a esa posición porque hay un obstaculo");
             }
             else {
                 celdas[posicion_prota].id = "";
