@@ -96,7 +96,6 @@ window.onload = () => {
     //Coloco la puerta de salida cerrada
     let salida = celdas[celdas.length - 1];
     salida.id = "puertaCerrada";
-    console.log(salida)
 
 
 
@@ -131,18 +130,24 @@ window.onload = () => {
         i.onclick = (e) => {
             // Compruebo si el movimiento que quiere hacer el usuario es correcto
             if (posicion_prota + 1 == Array.from(celdas).indexOf(e.target) || posicion_prota - 1 == Array.from(celdas).indexOf(e.target) || posicion_prota + 8 == Array.from(celdas).indexOf(e.target) || posicion_prota - 8 == Array.from(celdas).indexOf(e.target)) {
+                
+                //Llamo a la función "comprobar salida" para ver si la puerta está abierta y el prota se encuentra en ella
+                comprobarSalida(posicion_prota, celdas, salida);
 
-
-
+                // if (e.target.id == "malo") {
+                //     reproducirRisa();
+                // }
                 if (obstaculos.includes(Array.from(celdas).indexOf(e.target))) {
                     alert("No puedes moverte a esa posición porque hay un obstaculo");
-                }
-                else {
+                } else {
                     celdas[posicion_prota].id = "";
                     posicion_prota = Array.from(celdas).indexOf(e.target);
                     e.target.id = "prota";
+                    //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
+
                     let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
                 }
+
 
                 // Compruebo si el protagonista ha conseguido los examenes
                 if (posicion_prota == posicion_examenes) {
@@ -151,12 +156,8 @@ window.onload = () => {
                     document.getElementById("box-inventario").style.display = 'flex';
                 }
 
-                //Cuando se mueve al prota, llamo a la función "comprobarSalida" para saber si ha ganado o no y llamo a la función "moverMalo" que mueve automáticamente al malo después de 1 s
-                timer = setTimeout(moverMalo, 100, examanes_inventario, celdas);
-                // let timer = setTimeout(moverMalo, 300, examanes_inventario, celdas);
 
-                //Llamo a la función "comprobar salida" para ver si la puerta está abierta y el prota se encuentra en ella
-                comprobarSalida(posicion_prota, celdas, salida);
+                
 
             }
             else if (posicion_prota == Array.from(celdas).indexOf(e.target)) {
@@ -176,7 +177,7 @@ window.onload = () => {
     document.addEventListener('keyup', (e) => {
 
         //Llamo a la función "comprobar salida" para ver si la puerta está abierta
-        // comprobarSalida(posicion_prota, celdas, salida);
+        comprobarSalida(posicion_prota, celdas, salida);
 
         // Mover a la izquierda
         if (e.keyCode == 37) {
@@ -250,8 +251,6 @@ window.onload = () => {
             document.getElementById("box-inventario").style.display = 'flex';
         }
 
-        //Llamo a la función "comprobar salida" para ver si la puerta está abierta y el prota se encuentra en ella
-        comprobarSalida(posicion_prota, celdas, salida);
 
     });
 
@@ -277,299 +276,304 @@ function comprobarSalida(pos_prota, listaCeldas) {
             location.reload();
         }
     }
+}
 
-    //MOVER MALO
-    function moverMalo(examenes, listaCeldas) {
+//MOVER MALO
+function moverMalo(examenes, listaCeldas) {
 
-        //Guardo el estado de los exámenes
-        let examanes_inventario = examenes;
+    //Guardo el estado de los exámenes
+    let examanes_inventario = examenes;
 
-        let celdas = listaCeldas;
+    let celdas = listaCeldas;
 
-        //Creo la tablero donde voy a almacenar las celdas
-        let tablero = [
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            [],
-            []
-        ];
+    //Creo la tablero donde voy a almacenar las celdas
+    let tablero = [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+    ];
 
-        //Creo dos variables que usaré para almacenar las celdas
-        let contadorFila = 0;
-        let indice = 0;
-        let coordenadas = new Map();
+    //Creo dos variables que usaré para almacenar las celdas
+    let contadorFila = 0;
+    let indice = 0;
+    let coordenadas = new Map();
 
-        prueba = 0;
-        celdas.forEach(element => {
-            indice++;
-            tablero[contadorFila].push(element);
-            //Guardo las coordenadas del protagonista
-            if (element.id == "prota") {
-                coordenadas.filaProta = contadorFila;
-                coordenadas.columnaProta = tablero[contadorFila].indexOf(element);
-            }
-            if (element.id == "malo") {
-                coordenadas.filaMalo = contadorFila;
-                coordenadas.columnaMalo = tablero[contadorFila].indexOf(element);
-            }
+    prueba = 0;
+    celdas.forEach(element => {
+        indice++;
+        tablero[contadorFila].push(element);
+        //Guardo las coordenadas del protagonista
+        if (element.id == "prota") {
+            coordenadas.filaProta = contadorFila;
+            coordenadas.columnaProta = tablero[contadorFila].indexOf(element);
+        }
+        if (element.id == "malo") {
+            coordenadas.filaMalo = contadorFila;
+            coordenadas.columnaMalo = tablero[contadorFila].indexOf(element);
+        }
 
-            if (element.id == "examenes") {
-                coordenadas.filaExamenes = contadorFila;
-                coordenadas.columnaExamenes = tablero[contadorFila].indexOf(element);
-            }
+        if (element.id == "examenes") {
+            coordenadas.filaExamenes = contadorFila;
+            coordenadas.columnaExamenes = tablero[contadorFila].indexOf(element);
+        }
+        if(element.id == "obstaculo"){
+            coordenadas.obstaculos = new Map();
+            coordenadas.obstaculos.push
+        }
 
-            if (indice % 8 == 0) {
-                contadorFila++;
-            }
+        if (indice % 8 == 0) {
+            contadorFila++;
+        }
 
-            if (indice == celdas.length) {
-                //Llamo a la función "cambiarMalo" y le paso las coordenadas del prota como parámetros
-                // cambiarMalo(coordenadas, tablero);
-            }
-        });
-
-
+        if (indice == celdas.length) {
+            //Llamo a la función "cambiarMalo" y le paso las coordenadas del prota como parámetros
+            // cambiarMalo(coordenadas, tablero);
+        }
+    });
 
 
 
 
 
-        tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = "";
-        //Comprobar que se encuentra en la parte superior-izquierda del tablero
-        if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
 
-            //Mover malo a la izquierda
-            if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
-                if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo > 0)) {
-                    tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo - 1;
-                } else if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == 0)) {
-                    tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
-                }
 
-                //Mover hacia arriba
+    tablero[coordenadas.filaMalo][coordenadas.columnaMalo].id = "";
+    //Comprobar que se encuentra en la parte superior-izquierda del tablero
+    if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
+
+        //Mover malo a la izquierda
+        if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
+            if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo > 0)) {
+                tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo - 1;
+            } else if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == 0)) {
+                tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo + 1;
             } else {
-                if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
-
-                } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo - 1;
-                }
-
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
             }
 
-
-            //Comprobar que se encuentra en la parte superior-derecha del tablero
-        } else if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
-
-            //Mover hacia la derecha
-            if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
-                if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo > 0)) {
-                    tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo - 1;
-                } else if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == 0)) {
-                    tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
-                }
-
-                //Mover hacia arriba
-            } else {
-                if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
-
-                } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo - 1;
-                }
-
-            }
-
-
-
-            //Comprobar que se encuentra en la parte inferior-izquierda del tablero
-
-        } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
-            //Mover malo a la izquierda
-            if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
-                if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo < (tablero.length - 1))) {
-                    tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo + 1;
-                } else if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == (tablero.length - 1))) {
-                    tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo - 1;
-                } else {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
-                }
-                //Mover malo hacia abajo
-            } else {
-                if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
-
-                } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo + 1;
-                }
-
-            }
-
-
-            //Comprobar que se encuentra en la parte inferior-derecha del tablero
-
-        } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
-
-            //Mover malo a la derecha
-            if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
-                if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo < (tablero.length - 1))) {
-                    tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo + 1;
-                } else if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == (tablero.length - 1))) {
-                    tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo - 1;
-                } else {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
-                }
-                //Mover malo hacia abajo
-            } else {
-                if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
-
-                } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo + 1;
-                }
-
-            }
-
-            //Comprobar que se encuentra en la misma fila o columna
+            //Mover hacia arriba
         } else {
+            if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
 
-            //Misma fila, se mueve a la izquierda
-            if ((coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
-                if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo > 0)) {
-                    tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo - 1;
-                } else if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == 0)) {
-                    tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
-                }
-
-                //Misma fila, se mueve a la derecha
-            } else if ((coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
-                if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo > 0)) {
-                    tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo - 1;
-                } else if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == 0)) {
-                    tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
-                }
-
-                //Misma columna, se mueve hacia arriba
-            } else if ((coordenadas.columnaProta == coordenadas.columnaProta) && (coordenadas.filaProta < coordenadas.filaMalo)) {
-
-                if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
-
-                } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo - 1;
-                }
-
-                //Misma columna, se mueve hacia abajo
+            } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
             } else {
-                if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
+                tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo - 1;
+            }
 
-                } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
-                    tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
-                    coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
-                } else {
-                    tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
-                    coordenadas.filaMalo = coordenadas.filaMalo + 1;
-                }
+        }
+
+
+        //Comprobar que se encuentra en la parte superior-derecha del tablero
+    } else if ((coordenadas.filaProta < coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
+
+        //Mover hacia la derecha
+        if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
+            if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo > 0)) {
+                tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo - 1;
+            } else if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == 0)) {
+                tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo + 1;
+            } else {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
+            }
+
+            //Mover hacia arriba
+        } else {
+            if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
+
+            } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
+            } else {
+                tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo - 1;
             }
 
         }
 
 
 
-        //Llamo a la función "perder" pasando como parámetros el tablero y las coordenadas del prota y el malo. 
-        perder(coordenadas)
+        //Comprobar que se encuentra en la parte inferior-izquierda del tablero
+
+    } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
+        //Mover malo a la izquierda
+        if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
+            if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo < (tablero.length - 1))) {
+                tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo + 1;
+            } else if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == (tablero.length - 1))) {
+                tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo - 1;
+            } else {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
+            }
+            //Mover malo hacia abajo
+        } else {
+            if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
+
+            } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
+            } else {
+                tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo + 1;
+            }
+
+        }
 
 
+        //Comprobar que se encuentra en la parte inferior-derecha del tablero
 
+    } else if ((coordenadas.filaProta > coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
+
+        //Mover malo a la derecha
+        if ((((coordenadas.filaMalo % 2) == 0) && ((coordenadas.columnaMalo % 2) == 0)) || (((coordenadas.filaMalo % 2) == 1) && ((coordenadas.columnaMalo % 2) == 1))) {
+            if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo < (tablero.length - 1))) {
+                tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo + 1;
+            } else if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == (tablero.length - 1))) {
+                tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo - 1;
+            } else {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
+            }
+            //Mover malo hacia abajo
+        } else {
+            if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
+
+            } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
+            } else {
+                tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo + 1;
+            }
+
+        }
+
+        //Comprobar que se encuentra en la misma fila o columna
+    } else {
+
+        //Misma fila, se mueve a la izquierda
+        if ((coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta < coordenadas.columnaMalo)) {
+            if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo > 0)) {
+                tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo - 1;
+            } else if (((coordenadas.columnaMalo - 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == 0)) {
+                tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo + 1;
+            } else {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
+            }
+
+            //Misma fila, se mueve a la derecha
+        } else if ((coordenadas.filaProta == coordenadas.filaMalo) && (coordenadas.columnaProta > coordenadas.columnaMalo)) {
+            if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo > 0)) {
+                tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo - 1;
+            } else if (((coordenadas.columnaMalo + 1) == coordenadas.columnaExamenes) && (coordenadas.filaMalo == coordenadas.filaExamenes) && (coordenadas.filaMalo == 0)) {
+                tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo + 1;
+            } else {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
+            }
+
+            //Misma columna, se mueve hacia arriba
+        } else if ((coordenadas.columnaProta == coordenadas.columnaProta) && (coordenadas.filaProta < coordenadas.filaMalo)) {
+
+            if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
+
+            } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo - 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
+            } else {
+                tablero[coordenadas.filaMalo - 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo - 1;
+            }
+
+            //Misma columna, se mueve hacia abajo
+        } else {
+            if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo > 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo - 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo - 1;
+
+            } else if (((coordenadas.columnaMalo) == coordenadas.columnaExamenes) && ((coordenadas.filaMalo + 1) == coordenadas.filaExamenes) && (coordenadas.columnaMalo == 0)) {
+                tablero[coordenadas.filaMalo][coordenadas.columnaMalo + 1].id = "malo";
+                coordenadas.columnaMalo = coordenadas.columnaMalo + 1;
+            } else {
+                tablero[coordenadas.filaMalo + 1][coordenadas.columnaMalo].id = "malo";
+                coordenadas.filaMalo = coordenadas.filaMalo + 1;
+            }
+        }
 
     }
 
 
-    // Comprueba si al moverse el malo pilla o no al prota, recibiendo el tablero y las coordendas como parámetros
-    function perder(coord) {
-        coordenadas = coord;
+    //Llamo a la función "perder" pasando como parámetros el tablero y las coordenadas del prota y el malo. 
+    pillarAlProta(coordenadas)
 
-        if (coordenadas.filaMalo === coordenadas.filaProta && coordenadas.columnaMalo === coordenadas.columnaProta) {
-            // Creo el elemento de audio
-            let audio = document.createElement("audio");
-            // Asigno el atributo autoplay al elemento audio
-            audio.autoplay = true;
-            // Creo el elemento de source
-            let source = document.createElement("source");
-            // Le asigno la ruta del audio
-            source.src = "audio/risa.mp3";
-            // Le asigno el tipo de audio
-            source.type = "audio/mpeg";
-            // Enchancho el source al elemento audio
-            audio.appendChild(source);
-            // Engancho el audio al body
-            document.body.appendChild(audio);
 
-            //Le doy play al audio
-            audio.volume = 0.1;
-            audio.play();
+}
 
-            let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
-            if (perdedor) {
-                location.reload();
-            }
-        }
+
+// Comprueba si al moverse el malo pilla o no al prota, recibiendo el tablero y las coordendas como parámetros
+function pillarAlProta(coord) {
+    coordenadas = coord;
+
+    if (coordenadas.filaMalo === coordenadas.filaProta && coordenadas.columnaMalo === coordenadas.columnaProta) {
+        reproducirRisa();
+    }
+}
+
+function reproducirRisa() {
+    // Creo el elemento de audio
+    let audio = document.createElement("audio");
+    // Asigno el atributo autoplay al elemento audio
+    audio.autoplay = true;
+    // Creo el elemento de source
+    let source = document.createElement("source");
+    // Le asigno la ruta del audio
+    source.src = "audio/risa.mp3";
+    // Le asigno el tipo de audio
+    source.type = "audio/mpeg";
+    // Enchancho el source al elemento audio
+    audio.appendChild(source);
+    // Engancho el audio al body
+    document.body.appendChild(audio);
+
+    //Le doy play al audio
+    audio.volume = 0.5;
+    audio.play();
+
+    let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
+    if (perdedor) {
+        location.reload();
     }
 }
