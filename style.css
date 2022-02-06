@@ -73,7 +73,7 @@ td{
 }
 
 #box-inventario > div{
-    padding: 0.3rem;
+    padding: 0.4rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,3 +123,15 @@ audio{
 }
 
 
+
+span{
+    font-size: 1.5rem;
+}
+
+#info{
+    font-size: 1.1rem;
+}
+
+.obstaculos{
+    background-color: gray;
+}
