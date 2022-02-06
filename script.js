@@ -2,61 +2,93 @@ var timer;
 
 window.onload = () => {
 
-    // //Creo la opacidad de fondo al recargar la página donde se muestran los botones de "jugar" y las dificultades
-    // let padre = document.querySelector("body");
-    // var opacidadFondo = document.createElement("div");
-    // opacidadFondo.id = "primeraPantalla";
+    //Creo la opacidad de fondo al recargar la página donde se muestran los botones de "jugar" y las dificultades
+    let padre = document.querySelector("body");
+    var opacidadFondo = document.createElement("div");
+    opacidadFondo.id = "primeraPantalla";
 
-    // //Agrego al body el la opacidad de fondo antes del primer hijo que tenga
-    // padre.insertBefore(opacidadFondo, padre.firstChild);
+    //Agrego al body el la opacidad de fondo antes del primer hijo que tenga
+    padre.insertBefore(opacidadFondo, padre.firstChild);
 
-    // //Creamos el botón que inicia el juego y le aplicamos estilos
-    // let boton = document.createElement("input");
-    // boton.onclick = function () {
-    //     padre.removeChild(opacidadFondo)
-    // }
+    //Creo el botón que inicia el juego (imagen de Harry Potter)
+    let boton = document.createElement("input");
+    boton.onclick = function () {
+        padre.removeChild(opacidadFondo)
+    }
 
-    // //Creo el botón que inicia el juego (imagen de Harry Potter)
-    // boton.id = "botonHarry";
-    // boton.value = "!JUGAR¡";
-    // boton.type = "image";
-    // boton.src = "/img/harry.png"
-    // boton.position = "absolute";
+    boton.id = "botonHarry";
+    boton.value = "!JUGAR¡";
+    boton.type = "image";
+    boton.src = "/img/harry.png"
+    boton.position = "absolute";
 
-    // boton.onmouseover = function () {
-    //     boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
-    //     boton.style["-webkit-transform"] = "scale(1.2)";
-    //     boton.style["transform"] = "transform:scale(1.2)";
-    // }
-    // boton.onmouseout = function () {
-    //     boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
-    //     boton.style["-webkit-transform"] = "scale(1)";
-    //     boton.style["transform"] = "transform:scale(1)";
-    // }
+    boton.onmouseover = function () {
+        boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+        boton.style["-webkit-transform"] = "scale(1.1)";
+        boton.style["transform"] = "transform:scale(1.1)";
+        boton.style.filter = "drop-shadow(0 0 3rem #ccb102a9)";
 
-    // //Añado el botón a la opacidad previamente creada
-    // opacidadFondo.appendChild(boton);
+    }
+    boton.onmouseout = function () {
+        boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+        boton.style["-webkit-transform"] = "scale(1)";
+        boton.style["transform"] = "transform:scale(1)";
+        boton.style.filter = "none";
+    }
 
-    // //Creo la caja que tendrá las instrucciones del juego
-    // let cajaReglas = document.createElement("div");
-    // cajaReglas.id = "cajaReglas";
+    //Añado el botón a la opacidad previamente creada
+    opacidadFondo.appendChild(boton);
 
-    // //Creo el párrafo que tendrá el texto de las reglas
-    // let parrafoReglas = document.createElement("p");
-    // parrafoReglas.id = "parrafoReglas"
 
-    // //Creo el texto de las reglas
-    // let textoReglas = document.createTextNode("Bienvenido a Medwarts, donde la magia solo es para unos pocos.\n¿Serás capaz de robar los exámenes de Historia de la Magia? Se encuentran en la mesa del profesor Jeisnake así que solo tienes que llegar a ella pero !CUIDADO¡, el profesor está vigilando. \nSolo podrás moverte una casilla en horizontal o en vertical en cada turno que te toque pero recuerda, el malvado profesor también se moverá de la misma manera en tu búsqueda.\nUna vez tengas los exámenes la puerta encantada se abrirá y podras volver a tu habitación con el tesoro. !SUERTE¡ ");
 
-    // parrafoReglas.appendChild(textoReglas)
-    // cajaReglas.appendChild(parrafoReglas);
-    // opacidadFondo.appendChild(cajaReglas);
+    //Creo la caja que tendrá las instrucciones del juego
+    let cajaReglas = document.createElement("div");
+    cajaReglas.id = "cajaReglas";
+
+    //Creo el párrafo que tendrá el texto de las reglas
+    let parrafoReglas = document.createElement("marquee");
+    parrafoReglas.direction = "up";
+    parrafoReglas.scrollAmount = 2;
+    parrafoReglas.id = "parrafoReglas";
+
+    //Creo el texto de las reglas
+    let textoReglas = document.createTextNode("Bienvenido a Medwarts, donde la magia solo es para unos pocos.\n¿Serás capaz de robar los exámenes de Historia de la Magia? Se encuentran en la mesa del profesor Jeisnake así que solo tienes que llegar a ella pero !CUIDADO¡, el profesor está vigilando. \nSolo podrás moverte una casilla en horizontal o en vertical en cada turno que te toque pero recuerda, el malvado profesor también se moverá de la misma manera en tu búsqueda.\nUna vez tengas los exámenes la puerta encantada se abrirá y podras volver a tu habitación con el tesoro. !SUERTE¡ ");
+
+    //Creo el botón que inicia el juego (imagen del gorro)
+    let gorro = document.createElement("input");
+    gorro.onclick = function () {
+        padre.removeChild(opacidadFondo)
+    }
+    gorro.id = "gorro";
+    gorro.value = "!JUGAR¡";
+    gorro.type = "image";
+    gorro.src = "/img/gorro.png"
+    gorro.position = "absolute";
+
+    gorro.onmouseover = function () {
+        gorro.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+        gorro.style["-webkit-transform"] = "scale(1.2)";
+        gorro.style["transform"] = "transform:scale(1.2)";
+    }
+    gorro.onmouseout = function () {
+        gorro.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+        gorro.style["-webkit-transform"] = "scale(1)";
+        gorro.style["transform"] = "transform:scale(1)";
+    }
+
+
+
+    parrafoReglas.appendChild(textoReglas)
+    cajaReglas.appendChild(parrafoReglas);
+    //Añado el gorro a la caja de reglas
+    cajaReglas.appendChild(gorro);
+    opacidadFondo.appendChild(cajaReglas);
 
     //------------------------------------------------------------------------------------------------------
 
     // Ajustamos el volumen del audio y la velocidad del video
     let audio = document.querySelector("audio");
-    audio.volume = 1;
+    audio.volume = 0.2;
     audio.play();
 
     //------------------------------------------------------------------------------------------------------
@@ -113,16 +145,6 @@ window.onload = () => {
     // Creo una variable inicializada a "false" para almacenar los examenes (false: no tiene los examenes  --  True: tiene los examenes)
     let examanes_inventario = false;
 
-    let obstaculos = [];
-    let cont = 0;
-    do {
-        let num = parseInt(Math.random() * 62 + 1);
-        if (num != posicion_malo && num != posicion_examenes && !obstaculos.includes(num)) {
-            obstaculos.push(num);
-            cont++;
-            celdas[num].className = "obstaculos";
-        }
-    } while (cont <= 4);
 
     // Recorro todas las celdas de la tabla
     celdas.forEach((i) => {
@@ -130,15 +152,13 @@ window.onload = () => {
         i.onclick = (e) => {
             // Compruebo si el movimiento que quiere hacer el usuario es correcto
             if (posicion_prota + 1 == Array.from(celdas).indexOf(e.target) || posicion_prota - 1 == Array.from(celdas).indexOf(e.target) || posicion_prota + 8 == Array.from(celdas).indexOf(e.target) || posicion_prota - 8 == Array.from(celdas).indexOf(e.target)) {
-                
+
                 //Llamo a la función "comprobar salida" para ver si la puerta está abierta y el prota se encuentra en ella
                 comprobarSalida(posicion_prota, celdas, salida);
 
-                // if (e.target.id == "malo") {
-                //     reproducirRisa();
-                // }
-                if (obstaculos.includes(Array.from(celdas).indexOf(e.target))) {
-                    alert("No puedes moverte a esa posición porque hay un obstaculo");
+                if (e.target.id == "malo") {
+                    reproducirRisa();
+                    e.target.id == "malo";
                 } else {
                     celdas[posicion_prota].id = "";
                     posicion_prota = Array.from(celdas).indexOf(e.target);
@@ -157,7 +177,7 @@ window.onload = () => {
                 }
 
 
-                
+
 
             }
             else if (posicion_prota == Array.from(celdas).indexOf(e.target)) {
@@ -183,11 +203,12 @@ window.onload = () => {
         if (e.keyCode == 37) {
             if (derecha.includes(posicion_prota - 1) || posicion_prota - 1 < 0) {
                 alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
-            }
-            else if (obstaculos.includes(posicion_prota - 1)) {
-                alert("No puedes moverte a esa posición porque hay un obstaculo");
-            }
-            else {
+            } else if (celdas[posicion_prota - 1].id == "malo") {
+                reproducirRisa();
+                celdas[posicion_prota - 1].id == "malo";
+
+
+            } else {
                 celdas[posicion_prota].id = "";
                 posicion_prota -= 1;
                 celdas[posicion_prota].id = "prota";
@@ -199,9 +220,10 @@ window.onload = () => {
         else if (e.keyCode == 39) {
             if ((posicion_prota + 1) % 8 == 0 || posicion_prota + 1 == celdas.length) {
                 alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
-            }
-            else if (obstaculos.includes(posicion_prota + 1)) {
-                alert("No puedes moverte a esa posición porque hay un obstaculo");
+            } else if (celdas[posicion_prota + 1].id == "malo") {
+                reproducirRisa();
+                celdas[posicion_prota + 1].id == "malo";
+
             }
             else {
                 celdas[posicion_prota].id = "";
@@ -215,9 +237,10 @@ window.onload = () => {
         else if (e.keyCode == 38) {
             if (posicion_prota - 8 < 0) {
                 alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
-            }
-            else if (obstaculos.includes(posicion_prota - 8)) {
-                alert("No puedes moverte a esa posición porque hay un obstaculo");
+            } else if (celdas[posicion_prota - 8].id == "malo") {
+                reproducirRisa();
+                celdas[posicion_prota - 8].id == "malo";
+
             }
             else {
                 celdas[posicion_prota].id = "";
@@ -231,9 +254,9 @@ window.onload = () => {
         else if (e.keyCode == 40) {
             if (posicion_prota + 8 >= 64) { //celdas.length
                 alert("Ha esa posición no se puede mover. Intentelo de nuevo con otra posición.");
-            }
-            else if (obstaculos.includes(posicion_prota + 8)) {
-                alert("No puedes moverte a esa posición porque hay un obstaculo");
+            } else if (celdas[posicion_prota + 8].id == "malo") {
+                reproducirRisa();
+                celdas[posicion_prota + 8].id == "malo";
             }
             else {
                 celdas[posicion_prota].id = "";
@@ -263,18 +286,65 @@ function comprobarSalida(pos_prota, listaCeldas) {
     let celdas = listaCeldas;
 
     if ((((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1)) && (celdas[celdas.length - 1].id == "puertaAbierta")) {
+        //Creo la opacidad de fondo al recargar la página donde se muestra la imagen final
+        let padre = document.querySelector("body");
+        let opacidadFondo = document.createElement("div");
+        opacidadFondo.style.width = window.innerWidth + "px";
+        opacidadFondo.style.height = window.innerHeight + "px";
+        opacidadFondo.id = "protaAnimado";
+
+        //Creamos el botón que inicia el juego y le aplicamos estilos
+        let boton = document.createElement("input");
+        boton.onclick = function () {
+            location.reload();
+
+        }
+
+        //Creo el botón que repite el juego
+        boton.id = "repetir";
+        boton.type = "image";
+        boton.src = "/img/repetir.png"
+        boton.position = "absolute";
+
+        boton.onmouseover = function () {
+            boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+            boton.style["-webkit-transform"] = "scale(1.2)";
+            boton.style["transform"] = "transform:scale(1.2)";
+        }
+        boton.onmouseout = function () {
+            boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+            boton.style["-webkit-transform"] = "scale(1)";
+            boton.style["transform"] = "transform:scale(1)";
+        }
+
+        //Añado el botón a la opacidad previamente creada
+        opacidadFondo.appendChild(boton);
+
+        //Agrego al body el la opacidad de fondo antes del primer hijo que tenga
+        padre.insertBefore(opacidadFondo, padre.firstChild);
 
         let prota = document.getElementById("puertaAbierta");
         prota.style.backgroundImage = "img/harry-escoba.gif";
-        alert("Has ganado!!!");
         clearTimeout(timer);
-        // if ((((posicion_prota + 1) == celdas.length - 1) || ((posicion_prota + 8) == celdas.length - 1)) && (celdas[celdas.length - 1].id == "puertaAbierta")) {
-        //     alert("Has ganado!!!")
-        // }
-        if (posicion_prota == celdas.length - 1) {
-            alert("Has ganado!!!");
-            location.reload();
-        }
+
+        // Creo el elemento de audio
+        let audio = document.createElement("audio");
+        // Asigno el atributo autoplay al elemento audio
+        audio.autoplay = true;
+        // Creo el elemento de source
+        let source = document.createElement("source");
+        // Le asigno la ruta del audio
+        source.src = "audio/win.mp3";
+        // Le asigno el tipo de audio
+        source.type = "audio/mpeg";
+        // Enchancho el source al elemento audio
+        audio.appendChild(source);
+        // Engancho el audio al body
+        document.body.appendChild(audio);
+
+        //Le doy play al audio
+        audio.volume = 1;
+        audio.play();
     }
 }
 
@@ -305,6 +375,7 @@ function moverMalo(examenes, listaCeldas) {
 
     prueba = 0;
     celdas.forEach(element => {
+
         indice++;
         tablero[contadorFila].push(element);
         //Guardo las coordenadas del protagonista
@@ -312,18 +383,17 @@ function moverMalo(examenes, listaCeldas) {
             coordenadas.filaProta = contadorFila;
             coordenadas.columnaProta = tablero[contadorFila].indexOf(element);
         }
+        //Guardo las coordenadas del malo
+
         if (element.id == "malo") {
             coordenadas.filaMalo = contadorFila;
             coordenadas.columnaMalo = tablero[contadorFila].indexOf(element);
         }
 
+        //Guardo las coordenadas de  los examenes
         if (element.id == "examenes") {
             coordenadas.filaExamenes = contadorFila;
             coordenadas.columnaExamenes = tablero[contadorFila].indexOf(element);
-        }
-        if(element.id == "obstaculo"){
-            coordenadas.obstaculos = new Map();
-            coordenadas.obstaculos.push
         }
 
         if (indice % 8 == 0) {
@@ -335,6 +405,9 @@ function moverMalo(examenes, listaCeldas) {
             // cambiarMalo(coordenadas, tablero);
         }
     });
+
+
+
 
 
 
@@ -553,6 +626,45 @@ function pillarAlProta(coord) {
 }
 
 function reproducirRisa() {
+
+    //Creo la opacidad de fondo al recargar la página donde se muestra la imagen final
+    let padre = document.querySelector("body");
+    let opacidadFondo = document.createElement("div");
+    opacidadFondo.style.width = window.innerWidth + "px";
+    opacidadFondo.style.height = window.innerHeight + "px";
+    opacidadFondo.id = "pantallaFinal";
+
+    //Creamos el botón que inicia el juego y le aplicamos estilos
+    let boton = document.createElement("input");
+    boton.onclick = function () {
+        location.reload();
+
+    }
+
+    //Creo el botón que repite el juego
+    boton.id = "repetir";
+    boton.type = "image";
+    boton.src = "/img/repetir.png"
+    boton.position = "absolute";
+
+    boton.onmouseover = function () {
+        boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+        boton.style["-webkit-transform"] = "scale(1.2)";
+        boton.style["transform"] = "transform:scale(1.2)";
+    }
+    boton.onmouseout = function () {
+        boton.style["-webkit-transition"] = "-webkit-transform 500ms linear";
+        boton.style["-webkit-transform"] = "scale(1)";
+        boton.style["transform"] = "transform:scale(1)";
+    }
+
+    //Añado el botón a la opacidad previamente creada
+    opacidadFondo.appendChild(boton);
+
+    //Agrego al body el la opacidad de fondo antes del primer hijo que tenga
+    padre.insertBefore(opacidadFondo, padre.firstChild);
+
+
     // Creo el elemento de audio
     let audio = document.createElement("audio");
     // Asigno el atributo autoplay al elemento audio
@@ -572,8 +684,4 @@ function reproducirRisa() {
     audio.volume = 0.5;
     audio.play();
 
-    let perdedor = confirm("Te han pillado!!! \n ¿Quieres volver a jugar?");
-    if (perdedor) {
-        location.reload();
-    }
 }

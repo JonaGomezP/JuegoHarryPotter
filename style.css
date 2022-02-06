@@ -2,6 +2,58 @@
     box-sizing: content-box;
     cursor: none;
 }
+
+#primeraPantalla{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin: 0;
+    z-index: 1;
+    background-color: black;
+    cursor: pointer;
+}
+
+#botonHarry{
+    width: 30%;
+    position: relative;
+
+}
+
+#cajaReglas{
+    background-color: transparent;
+    width: auto;
+    max-width: 30%;
+    height: auto;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    box-shadow: 0 0 200px rgb(73, 13, 13);
+    border-radius: 3em;
+    cursor: pointer;
+}
+
+#parrafoReglas{
+    color: orange;
+    font-family: 'Alegreya Sans SC', sans-serif;    
+    text-align: justify;
+    font-size: 2rem;
+    text-shadow: 0 0 6px rgb(73, 13, 13) ;
+}
+
+#gorro{
+    width: 30%;
+}
+
+
 body{
     background: url(img/howarts.gif) no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -33,6 +85,25 @@ td{
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+}
+#protaAnimado{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin: 0;
+    z-index: 1;
+    background-image: url(img/harry-animado.gif);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    cursor: pointer;
 }
 
 #prota_exam{
@@ -135,3 +206,28 @@ span{
 .obstaculos{
     background-color: gray;
 }
+
+#pantallaFinal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    margin: 0;
+    z-index: 1;
+    background-image: url(img/game-over.gif);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    cursor: pointer;
+} 
+
+#repetir{
+    cursor: pointer;
+}
+
